@@ -52,8 +52,7 @@ class BST<Tkey, Tvalue, Tcompare>::iterator{
 	// dereference operator
 	Tvalue& operator*()
 	{
-		// check if . syntax is correct of -> is
-		return current.pair_type.second;
+		return current -> pair_type.second;
 	}
 
 	// arrow operator, returns address to value
@@ -78,16 +77,17 @@ class BST<Tkey, Tvalue, Tcompare>::iterator{
 	}
 
 	// == operator, should have 2 args?
-	bool operator==(const iterator& cmp) const 
+	bool operator==(const iterator& tmp) const 
 	{
-		return cmp == cmp.current;
+		// return true if the two current nodes have same key and value
+		return (current->pair_type.first == tmp.current->pair_type.first && current->pair_type.second == tmp.current->pair_type.second)
 	}
 
 	// != operator
-	bool operator!=(const iterator& cmp) const 
+	bool operator!=(const iterator& tmp) const 
 	{
 		// uses == definition
-		return !(*this == cmp);
+		return !(*this == tmp);
 	}
 
 	/*
