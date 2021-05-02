@@ -37,16 +37,44 @@ public:
 
 	//					###iterator###
 
-	/*		return an iteratori pointing to the leftmost node
-	iterator begin();
-	const_iterator begin() const;
-	const_iterator cbegin() const;
+	// return an iterator pointing to the leftmost node
+	iterator begin(){
 
-			return an iteratori pointing to the last+1 node
-	iterator end();
-	const_iterator end() const;
-	const_iterator cend() const;
-	*/
+		if (! *this.root){
+			iterator iter {};
+			return iter;
+		}
+
+		node* tmp_node = *this.root.get();
+		while (tmp_node->left_child){
+			tmp_node == tmp_node->left_child.get();
+		}
+
+		iterator iter{tmp_node};
+		return iter;
+	}
+	//const_iterator begin() const;
+	//const_iterator cbegin() const;
+
+	// return an iterator pointing to the last+1 node
+
+	iterator end(){
+
+		if (! *this.root){
+			iterator iter {};
+			return iter;
+		}
+
+		node* tmp_node = *this.root.get();
+		while (tmp_node->right_child){
+			tmp_node == tmp_node->right_child.get();
+		}
+
+		iterator iter{tmp_node};
+		return iter;
+	}
+	//const_iterator end() const;
+	//const_iterator cend() const;
 
 	//					###find();###
 

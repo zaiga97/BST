@@ -3,7 +3,8 @@
 #include <vector>
 #include <memory>
 
-//   insert()
+//   		###insert()###
+
 /*
 template<typename Tkey, typename Tvalue, typename Tcompare>
 std::pair<typename BST<Tkey, Tvalue, Tcompare>::iterator, bool> BST<Tkey, Tvalue, Tcompare>::insert(std::pair<Tkey, Tvalue>&& x){
