@@ -15,11 +15,27 @@ class BST<Tkey, Tvalue, Tcompare>::iterator{
 	// default ctor
 	iterator() = default;
 
+	// iterator ctor from a node
+	iterator(const node* Pcurrent) : current{Pcurrent}{};
+
 	// post-increment, fix search
 	iterator& operator++()
 	{
-		current = current.left;
-		return *this;
+		// If current has no right children then i have to search a new branch to move down
+		if (!current->right_child){
+			// Find the first node for who current is a left descendant
+			while (current->parent.right_child.get() == current){ current = current->parent; }
+			current = current->parent;
+			return *this;
+		}
+		// Now if my node has a right child then the next node wiil be the leftmost on the right sub-tree:
+		else{
+			// Move on the right branch
+			current = current->right_child.get();
+			// Get to the leftmost node on this new branc
+			while (current->left_child){ current = current->let_child.get(); }
+			return *this;
+		}		
 	}
 
 	// pre-increment
