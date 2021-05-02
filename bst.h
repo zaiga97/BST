@@ -78,7 +78,7 @@ public:
 
 	//					###find();###
 
-	iterator find(const key_type& search_key){
+	iterator find(const Tkey& search_key){
 		// Base case for bst tree with no root
 		if (! *this.root){
 			iterator iter {};
@@ -87,7 +87,7 @@ public:
 
 		// Tmp node used during the search
 		node* tmp_node {*this.root.get()};
-		key_type tmp_key {tmp_node->pair_type.first};
+		Tkey tmp_key {tmp_node->pair_type.first};
 
 		// Loop for descending the tree
 		while (tmp_key != search_key){
@@ -120,7 +120,7 @@ public:
 		return iter;
 
 	}
-	//const_iterator find(const key_type& x) const;
+	//const_iterator find(const Tkey& x) const;
 
 	//					###balance();###
 
@@ -128,8 +128,8 @@ public:
 
 	//					###subscripting###
 
-	//value_type& operator[](const key_type& x);
-	//value_type& operator[](key_type&& x);
+	//value_type& operator[](const Tkey& x);
+	//value_type& operator[](Tkey&& x);
 
 	//					###put_to<<###
 
@@ -139,7 +139,7 @@ public:
 
 	//					###erase###
 
-	//void erase(const key_type& x);
+	//void erase(const Tkey& x);
 };
 
 
