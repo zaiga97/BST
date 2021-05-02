@@ -80,7 +80,7 @@ class BST<Tkey, Tvalue, Tcompare>::iterator{
 	bool operator==(const iterator& tmp) const 
 	{
 		// return true if the two current nodes have same key and value
-		return (current->pair_type.first == tmp.current->pair_type.first && current->pair_type.second == tmp.current->pair_type.second)
+		return (current->pair_type.first == tmp.current->pair_type.first && current->pair_type.second == tmp.current->pair_type.second);
 	}
 
 	// != operator
