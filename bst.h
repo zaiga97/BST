@@ -78,7 +78,48 @@ public:
 
 	//					###find();###
 
-	//iterator find(const key_type& x);
+	iterator find(const key_type& search_key){
+		// Base case for bst tree with no root
+		if (! *this.root){
+			iterator iter {};
+			return iter;
+		}
+
+		// Tmp node used during the search
+		node* tmp_node {*this.root.get()};
+		key_type tmp_key {tmp_node->pair_type.first};
+
+		// Loop for descending the tree
+		while (tmp_key != search_key){
+	
+			// Case search_key is higher than current key
+			if (search_key > tmp_key){ // Tcompare ??
+				if (tmp_node.right_child){
+					tmp_node = tmp_node->right_child.get();
+					tmp_key = tmp_node->pair_type.first;
+				}
+				else { // node doesn't exist
+					return end();
+				}
+			}
+
+			// Case search_key is higher than current key
+			else{ // Tcompare ??
+				if (tmp_node.left_child){
+					tmp_node = tmp_node->left_child.get();
+					tmp_key = tmp_node->pair_type.first;
+				}
+				else { // node doesn't exist
+					return end();
+				}
+			}
+		}
+
+		// If the search is succesfull return the iterator to that position
+		iterator iter{tmp_node};
+		return iter;
+
+	}
 	//const_iterator find(const key_type& x) const;
 
 	//					###balance();###
