@@ -33,7 +33,7 @@ public:
 		}
 
 		// Tmp node used during the search
-		node* tmp_node {this->root.get()};
+		node* tmp_node {root.get()};
 		Tkey tmp_key {tmp_node->pair_type.first};
 		// Loop for descending the tree
 		while (tmp_key != search_key){
@@ -56,7 +56,7 @@ public:
 					tmp_key = tmp_node->pair_type.first;
 				}
 				else { // node doesn't exist
-					tmp_node->right_child.reset(new node{x});
+					tmp_node->left_child.reset(new node{x});
 					return (std::pair<iterator, bool> (iterator{root.get()}, true));
 				}
 			}
