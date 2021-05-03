@@ -158,10 +158,12 @@ public:
 	Tvalue& operator[](const Tkey& x){
 		iterator iter{};
 		iter = find(x);
+		// If a node with that key exists
 		if (iter.current != nullptr){
 			return iter.current->pair_type.second;
 		}
 		else{
+			// Create new node with random value
 			std::pair<Tkey, Tvalue> new_node(x, Tvalue{});
 			insert(new_node);
 			return operator[](x);
