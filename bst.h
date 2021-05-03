@@ -28,8 +28,8 @@ public:
 		// Base case for bst tree with no root
 		node new_node {x};
 		if (! *this.root){
-			//*this.root = new_node.get?
-			return (std::make_pair<iterator, bool> (iterator{new_node.get()}, true));
+			*this.root = &new_node;			
+			return (std::make_pair<iterator, bool> (iterator{*this.root}, true));
 		}
 
 		// Tmp node used during the search
@@ -44,8 +44,8 @@ public:
 					tmp_key = tmp_node->pair_type.first;
 				}
 				else { // node doesn't exist
-					tmp_node.right_child = new_node.get();
-					return (std::make_pair<iterator, bool> (iterator{new_node.get()}, true));
+					tmp_node.right_child = &new_node;
+					return (std::make_pair<iterator, bool> (iterator{&new_node}, true));
 				}
 			}
 
@@ -56,14 +56,14 @@ public:
 					tmp_key = tmp_node->pair_type.first;
 				}
 				else { // node doesn't exist
-					tmp_node.right_child = new_node.get();
-					return (std::make_pair<iterator, bool> (iterator{new_node.get()}, true));
+					tmp_node.right_child = &new_node;
+					return (std::make_pair<iterator, bool> (iterator{&new_node}, true));
 				}
 			}
 		}
 
 		// The key is already in the tree
-		return (std::make_pair<iterator, bool> (iterator{new_node.get()}, false));
+		return (std::make_pair<iterator, bool> (iterator{}, false));
 	}
 
 	//					###emplace();###
