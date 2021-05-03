@@ -24,7 +24,47 @@ public:
 	//					###insert();###
 
 	//std::pair<iterator, bool> insert(std::pair<Tkey, Tvalue>&& x);
-	//std::pair<iterator, bool> insert(const std::pair<Tkey, Tvalue>& x);
+	std::pair<iterator, bool> insert(const std::pair<Tkey, Tvalue>& x){
+		// Base case for bst tree with no root
+		node new_node {x};
+		if (! *this.root){
+			*this.root = &new_node;			
+			return (std::make_pair<iterator, bool> (iterator{*this.root}, true));
+		}
+
+		// Tmp node used during the search
+		node* tmp_node {*this.root.get()};
+		Tkey tmp_key {tmp_node->pair_type.first};
+		// Loop for descending the tree
+		while (tmp_key != search_key){
+			// Case search_key is higher than current key
+			if (search_key > tmp_key){ // Tcompare ??
+				if (tmp_node.right_child){
+					tmp_node = tmp_node->right_child.get();
+					tmp_key = tmp_node->pair_type.first;
+				}
+				else { // node doesn't exist
+					tmp_node.right_child = &new_node;
+					return (std::make_pair<iterator, bool> (iterator{&new_node}, true));
+				}
+			}
+
+			// Case search_key is higher than current key
+			else{ // Tcompare ??
+				if (tmp_node.left_child){
+					tmp_node = tmp_node->left_child.get();
+					tmp_key = tmp_node->pair_type.first;
+				}
+				else { // node doesn't exist
+					tmp_node.right_child = &new_node;
+					return (std::make_pair<iterator, bool> (iterator{&new_node}, true));
+				}
+			}
+		}
+
+		// The key is already in the tree
+		return (std::make_pair<iterator, bool> (iterator{}, false));
+	}
 
 	//					###emplace();###
 
