@@ -161,7 +161,7 @@ public:
 	//					###put_to<<###
 
 	friend std::ostream& operator<<(std::ostream& os, const BST& t){
-		for(auto &x: t){
+		for(auto x: t){
 			os << x.current->pair_type.second << " ";
 		}
 		os << std::endl;
@@ -239,7 +239,8 @@ public:
 			current = current->parent;
 			return *this;
 		}
-		// Now if my node has a right child then the next noiteratde wiil be the leftmost on the right sub-tree:
+
+		// Now if my node has a right child then the next node wiil be the leftmost on the right sub-tree:
 		else{
 			// Move on the right branch
 			current = current->right_child.get();
