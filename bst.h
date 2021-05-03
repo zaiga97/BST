@@ -25,45 +25,45 @@ public:
 
 	//std::pair<iterator, bool> insert(std::pair<Tkey, Tvalue>&& x);
 	std::pair<iterator, bool> insert(const std::pair<Tkey, Tvalue>& x){
+		Tkey search_key{x.first};	
 		// Base case for bst tree with no root
-		node new_node {x};
-		if (! *this.root){
-			*this.root = &new_node;			
-			return (std::make_pair<iterator, bool> (iterator{*this.root}, true));
+		if (!root){
+			root.reset(new node{x});
+			return (std::pair<iterator, bool> (iterator{root.get()}, true));
 		}
 
 		// Tmp node used during the search
-		node* tmp_node {*this.root.get()};
+		node* tmp_node {this->root.get()};
 		Tkey tmp_key {tmp_node->pair_type.first};
 		// Loop for descending the tree
 		while (tmp_key != search_key){
 			// Case search_key is higher than current key
 			if (search_key > tmp_key){ // Tcompare ??
-				if (tmp_node.right_child){
+				if (tmp_node->right_child){
 					tmp_node = tmp_node->right_child.get();
 					tmp_key = tmp_node->pair_type.first;
 				}
 				else { // node doesn't exist
-					tmp_node.right_child = &new_node;
-					return (std::make_pair<iterator, bool> (iterator{&new_node}, true));
+					tmp_node->right_child.reset(new node{x});
+					return (std::pair<iterator, bool> (iterator{root.get()}, true));
 				}
 			}
 
 			// Case search_key is higher than current key
 			else{ // Tcompare ??
-				if (tmp_node.left_child){
+				if (tmp_node->left_child){
 					tmp_node = tmp_node->left_child.get();
 					tmp_key = tmp_node->pair_type.first;
 				}
 				else { // node doesn't exist
-					tmp_node.right_child = &new_node;
-					return (std::make_pair<iterator, bool> (iterator{&new_node}, true));
+					tmp_node->right_child.reset(new node{x});
+					return (std::pair<iterator, bool> (iterator{root.get()}, true));
 				}
 			}
 		}
 
 		// The key is already in the tree
-		return (std::make_pair<iterator, bool> (iterator{}, false));
+		return (std::pair<iterator, bool> (iterator{}, false));
 	}
 
 	//					###emplace();###
@@ -80,18 +80,17 @@ public:
 	// return an iterator pointing to the leftmost node
 	iterator begin(){
 
-		if (! *this.root){
+		if (! this->root){
 			iterator iter {};
 			return iter;
 		}
 
-		node* tmp_node = *this.root.get();
+		node* tmp_node = this->root.get();
 		while (tmp_node->left_child){
 			tmp_node == tmp_node->left_child.get();
 		}
 
-		iterator iter{tmp_node};
-		return iter;
+		return iterator{tmp_node};
 	}
 	//const_iterator begin() const;
 	//const_iterator cbegin() const;
@@ -99,19 +98,7 @@ public:
 	// return an iterator pointing to the last+1 node
 
 	iterator end(){
-
-		if (! *this.root){
-			iterator iter {};
-			return iter;
-		}
-
-		node* tmp_node = *this.root.get();
-		while (tmp_node->right_child){
-			tmp_node == tmp_node->right_child.get();
-		}
-
-		iterator iter{tmp_node};
-		return iter;
+		return iterator{nullptr};
 	}
 	//const_iterator end() const;
 	//const_iterator cend() const;
@@ -173,7 +160,13 @@ public:
 
 	//					###put_to<<###
 
-	//friend std::ostream& operator<<(std::ostream& os, const bst& x);
+	friend std::ostream& operator<<(std::ostream& os, const BST& t){
+		for(auto &x: t){
+			os << x.current->pair_type.second << " ";
+		}
+		os << std::endl;
+		return os;
+	}
 
 	//					###copy and move###
 
@@ -221,3 +214,104 @@ struct BST<Tkey, Tvalue, Tcompare>::node{
 	}
 };
 
+template<typename Tkey, typename Tvalue, typename Tcompare>
+class BST<Tkey, Tvalue, Tcompare>::iterator{
+public:
+	friend class BST;
+
+	using node = BST<Tkey, Tvalue, Tcompare>::node;
+
+	node* current;
+
+	// default ctor
+	iterator() = default;
+
+	// iterator ctor from a node
+	iterator(node* Pcurrent) : current{Pcurrent}{};
+
+	// post-increment, fix search
+	iterator& operator++()
+	{
+		// If current has no right children then i have to search a new branch to move down
+		if (!current->right_child){
+			// Find the first node for who current is a left descendant
+			while (current->parent.right_child.get() == current){ current = current->parent; }
+			current = current->parent;
+			return *this;
+		}
+		// Now if my node has a right child then the next noiteratde wiil be the leftmost on the right sub-tree:
+		else{
+			// Move on the right branch
+			current = current->right_child.get();
+			// Get to the leftmost node on this new branc
+			while (current->left_child){ current = current->left_child.get(); }
+			return *this;
+		}		
+	}
+
+	// pre-increment
+	iterator operator++(int)
+	{
+		// copy in temp
+		auto tmp{*this};
+		// pre increment
+		++(*this);
+		// return temp
+		return tmp;
+	}
+
+	// dereference operator
+	Tvalue& operator*()
+	{
+		return current -> pair_type.second;
+	}
+
+	// arrow operator, returns address to value
+	Tvalue* operator->()
+	{
+		/*  meaning:
+			*this = myself
+			*(*this) = calls dereference function
+			&(*(*this)) = address of returned object and return a pointer
+		*/
+		return &(*(*this));
+	}
+
+
+	// sum operator, useless
+	iterator operator+(int n)
+	{
+		for (unsigned int i = 0; i < n; i++){
+			*this++;
+		}
+		return *this;
+	}
+
+	// == operator, should have 2 args?
+	bool operator==(const iterator& tmp) const 
+	{
+		// return true if the two current nodes have same key and value
+		return (current->pair_type.first == tmp.current->pair_type.first && current->pair_type.second == tmp.current->pair_type.second);
+	}
+
+	// != operator
+	bool operator!=(const iterator& tmp) const 
+	{
+		// uses == definition
+		return !(*this == tmp);
+	}
+
+	/*
+
+	iterator  operator++(int)          				{ return pos_++; }
+    iterator& operator++()    			            { ++pos_; return *this; }
+    reference operator* () const                    { return *pos_; }
+    pointer   operator->() const                    { return pos_; }
+    iterator  operator+ (difference_type v)   const { return pos_ + v; }
+    bool      operator==(const iterator& rhs) const { return pos_ == rhs.pos_; }
+    bool      operator!=(const iterator& rhs) const { return pos_ != rhs.pos_; }
+
+    */
+
+
+};
