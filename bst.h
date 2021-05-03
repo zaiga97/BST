@@ -28,7 +28,7 @@ public:
 		// Base case for bst tree with no root
 		node new_node {x};
 		if (! *this.root){
-			// *this.root = new_node.get?
+			//*this.root = new_node.get?
 			return (std::make_pair<iterator, bool> (iterator{new_node.get()}, true));
 		}
 
