@@ -77,21 +77,90 @@ public:
 
 	//					###iterator###
 
-	/*		return an iteratori pointing to the leftmost node
-	iterator begin();
-	const_iterator begin() const;
-	const_iterator cbegin() const;
+	// return an iterator pointing to the leftmost node
+	iterator begin(){
 
-			return an iteratori pointing to the last+1 node
-	iterator end();
-	const_iterator end() const;
-	const_iterator cend() const;
-	*/
+		if (! *this.root){
+			iterator iter {};
+			return iter;
+		}
+
+		node* tmp_node = *this.root.get();
+		while (tmp_node->left_child){
+			tmp_node == tmp_node->left_child.get();
+		}
+
+		iterator iter{tmp_node};
+		return iter;
+	}
+	//const_iterator begin() const;
+	//const_iterator cbegin() const;
+
+	// return an iterator pointing to the last+1 node
+
+	iterator end(){
+
+		if (! *this.root){
+			iterator iter {};
+			return iter;
+		}
+
+		node* tmp_node = *this.root.get();
+		while (tmp_node->right_child){
+			tmp_node == tmp_node->right_child.get();
+		}
+
+		iterator iter{tmp_node};
+		return iter;
+	}
+	//const_iterator end() const;
+	//const_iterator cend() const;
 
 	//					###find();###
 
-	//iterator find(const key_type& x);
-	//const_iterator find(const key_type& x) const;
+	iterator find(const Tkey& search_key){
+		// Base case for bst tree with no root
+		if (! *this.root){
+			iterator iter {};
+			return iter;
+		}
+
+		// Tmp node used during the search
+		node* tmp_node {*this.root.get()};
+		Tkey tmp_key {tmp_node->pair_type.first};
+
+		// Loop for descending the tree
+		while (tmp_key != search_key){
+	
+			// Case search_key is higher than current key
+			if (search_key > tmp_key){ // Tcompare ??
+				if (tmp_node.right_child){
+					tmp_node = tmp_node->right_child.get();
+					tmp_key = tmp_node->pair_type.first;
+				}
+				else { // node doesn't exist
+					return end();
+				}
+			}
+
+			// Case search_key is higher than current key
+			else{ // Tcompare ??
+				if (tmp_node.left_child){
+					tmp_node = tmp_node->left_child.get();
+					tmp_key = tmp_node->pair_type.first;
+				}
+				else { // node doesn't exist
+					return end();
+				}
+			}
+		}
+
+		// If the search is succesfull return the iterator to that position
+		iterator iter{tmp_node};
+		return iter;
+
+	}
+	//const_iterator find(const Tkey& x) const;
 
 	//					###balance();###
 
@@ -99,8 +168,8 @@ public:
 
 	//					###subscripting###
 
-	//value_type& operator[](const key_type& x);
-	//value_type& operator[](key_type&& x);
+	//value_type& operator[](const Tkey& x);
+	//value_type& operator[](Tkey&& x);
 
 	//					###put_to<<###
 
@@ -110,7 +179,7 @@ public:
 
 	//					###erase###
 
-	//void erase(const key_type& x);
+	//void erase(const Tkey& x);
 };
 
 
