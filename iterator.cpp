@@ -33,7 +33,7 @@ class BST<Tkey, Tvalue, Tcompare>::iterator{
 			// Move on the right branch
 			current = current->right_child.get();
 			// Get to the leftmost node on this new branc
-			while (current->left_child){ current = current->let_child.get(); }
+			while (current->left_child){ current = current->left_child.get(); }
 			return *this;
 		}		
 	}
