@@ -25,48 +25,45 @@ public:
 
 	//std::pair<iterator, bool> insert(std::pair<Tkey, Tvalue>&& x);
 	std::pair<iterator, bool> insert(const std::pair<Tkey, Tvalue>& x){
-		Tkey search_key{x.first};
+		Tkey search_key{x.first};	
 		// Base case for bst tree with no root
-		node new_node {x};
-		if (! this->root){
-			this->root.reset(&new_node);
-			//this->root = &new_node;	
-			iterator iter;	
-			return (std::make_pair<iterator, bool> (iter, true));
+		if (!root){
+			root.reset(new node{x});
+			return (std::pair<iterator, bool> (iterator{root.get()}, true));
 		}
 
 		// Tmp node used during the search
-		node* tmp_node {this->root.get()};
+		node* tmp_node {root.get()};
 		Tkey tmp_key {tmp_node->pair_type.first};
 		// Loop for descending the tree
 		while (tmp_key != search_key){
 			// Case search_key is higher than current key
 			if (search_key > tmp_key){ // Tcompare ??
-				if (tmp_node.right_child){
+				if (tmp_node->right_child){
 					tmp_node = tmp_node->right_child.get();
 					tmp_key = tmp_node->pair_type.first;
 				}
 				else { // node doesn't exist
-					tmp_node.right_child = &new_node;
-					return (std::make_pair<iterator, bool> (iterator{&new_node}, true));
+					tmp_node->right_child.reset(new node{x});
+					return (std::pair<iterator, bool> (iterator{root.get()}, true));
 				}
 			}
 
 			// Case search_key is higher than current key
 			else{ // Tcompare ??
-				if (tmp_node.left_child){
+				if (tmp_node->left_child){
 					tmp_node = tmp_node->left_child.get();
 					tmp_key = tmp_node->pair_type.first;
 				}
 				else { // node doesn't exist
-					tmp_node.right_child = &new_node;
-					return (std::make_pair<iterator, bool> (iterator{&new_node}, true));
+					tmp_node->left_child.reset(new node{x});
+					return (std::pair<iterator, bool> (iterator{root.get()}, true));
 				}
 			}
 		}
 
 		// The key is already in the tree
-		return (std::make_pair<iterator, bool> (iterator{}, false));
+		return (std::pair<iterator, bool> (iterator{}, false));
 	}
 
 	//					###emplace();###
@@ -242,6 +239,7 @@ public:
 			current = current->parent;
 			return *this;
 		}
+
 		// Now if my node has a right child then the next node wiil be the leftmost on the right sub-tree:
 		else{
 			// Move on the right branch
