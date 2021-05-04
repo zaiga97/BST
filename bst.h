@@ -82,14 +82,13 @@ public:
 	// return an iterator pointing to the leftmost node
 	iterator begin(){
 
-		if (! this->root){
-			iterator iter {};
-			return iter;
+		if (!root){
+			return iterator{};
 		}
 
-		node* tmp_node = this->root.get();
+		node* tmp_node = root.get();
 		while (tmp_node->left_child){
-			tmp_node == tmp_node->left_child.get();
+			tmp_node = tmp_node->left_child.get();
 		}
 
 		return iterator{tmp_node};
@@ -176,11 +175,19 @@ public:
 
 	//					###put_to<<###
 
-	friend std::ostream& operator<<(std::ostream& os, const BST& t){
-		for(auto x: t){
+	friend std::ostream& operator<<(std::ostream& os, BST& t){
+		/*for (const iterator& x: t){
 			os << x.current->pair_type.second << " ";
 		}
 		os << std::endl;
+		*/
+		iterator x{t.begin()};
+		os << "(" << x.current->pair_type.first << ", " << x.current->pair_type.second << ") ";
+		while ((++x) != t.end()){
+			os << "(" << x.current->pair_type.first << ", " << x.current->pair_type.second << ") ";
+		}
+		os << std::endl;
+		
 		return os;
 	}
 
@@ -237,7 +244,7 @@ public:
 
 	using node = BST<Tkey, Tvalue, Tcompare>::node;
 
-	node* current;
+	node* current{nullptr};
 
 	// default ctor
 	iterator() = default;
@@ -245,13 +252,14 @@ public:
 	// iterator ctor from a node
 	iterator(node* Pcurrent) : current{Pcurrent}{};
 
-	// post-increment, fix search
+	// pre-increment, fix search
 	iterator& operator++()
 	{
 		// If current has no right children then i have to search a new branch to move down
 		if (!current->right_child){
 			// Find the first node for who current is a left descendant
-			while (current->parent.right_child.get() == current){ current = current->parent; }
+			// Also need to check if I reached the root and in case return nullptr
+			while (current->parent && current->parent->right_child.get() == current){ current = current->parent; }
 			current = current->parent;
 			return *this;
 		}
@@ -265,7 +273,8 @@ public:
 		}		
 	}
 
-	// pre-increment
+	// post-increment
+	
 	iterator operator++(int)
 	{
 		// copy in temp
@@ -275,6 +284,7 @@ public:
 		// return temp
 		return tmp;
 	}
+	
 
 	// dereference operator
 	Tvalue& operator*()
@@ -307,7 +317,7 @@ public:
 	bool operator==(const iterator& tmp) const 
 	{
 		// return true if the two current nodes have same key and value
-		return (current->pair_type.first == tmp.current->pair_type.first && current->pair_type.second == tmp.current->pair_type.second);
+		return (current == tmp.current);
 	}
 
 	// != operator
