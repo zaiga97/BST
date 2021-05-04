@@ -1,7 +1,7 @@
 SRC = main_test.cpp
 
 CXX = c++
-CXXFLAGS = -Wall -Wextra -g -std=c++14 bst.cpp iterator.cpp
+CXXFLAGS = -Wall -Wextra -g -std=c++14 bst.cpp 
 
 EXE = $(SRC:.cpp=.x)
 
