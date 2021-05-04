@@ -177,7 +177,7 @@ public:
 	//					###put_to<<###
 
 	friend std::ostream& operator<<(std::ostream& os, const BST& t){
-		for(auto &x: t){
+		for(auto x: t){
 			os << x.current->pair_type.second << " ";
 		}
 		os << std::endl;
