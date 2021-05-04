@@ -45,6 +45,7 @@ public:
 				}
 				else { // node doesn't exist
 					tmp_node->right_child.reset(new node{x});
+					// add parent
 					return (std::pair<iterator, bool> (iterator{root.get()}, true));
 				}
 			}
@@ -57,6 +58,7 @@ public:
 				}
 				else { // node doesn't exist
 					tmp_node->left_child.reset(new node{x});
+					// add parent
 					return (std::pair<iterator, bool> (iterator{root.get()}, true));
 				}
 			}
@@ -107,13 +109,13 @@ public:
 
 	iterator find(const Tkey& search_key){
 		// Base case for bst tree with no root
-		if (! *this.root){
+		if (! root){
 			iterator iter {};
 			return iter;
 		}
 
 		// Tmp node used during the search
-		node* tmp_node {*this.root.get()};
+		node* tmp_node {root.get()};
 		Tkey tmp_key {tmp_node->pair_type.first};
 
 		// Loop for descending the tree
@@ -121,7 +123,7 @@ public:
 	
 			// Case search_key is higher than current key
 			if (search_key > tmp_key){ // Tcompare ??
-				if (tmp_node.right_child){
+				if (tmp_node->right_child){
 					tmp_node = tmp_node->right_child.get();
 					tmp_key = tmp_node->pair_type.first;
 				}
@@ -132,7 +134,7 @@ public:
 
 			// Case search_key is higher than current key
 			else{ // Tcompare ??
-				if (tmp_node.left_child){
+				if (tmp_node->left_child){
 					tmp_node = tmp_node->left_child.get();
 					tmp_key = tmp_node->pair_type.first;
 				}
@@ -155,8 +157,22 @@ public:
 
 	//					###subscripting###
 
-	//value_type& operator[](const Tkey& x);
-	//value_type& operator[](Tkey&& x);
+	Tvalue& operator[](const Tkey& x){
+		iterator iter{};
+		iter = find(x);
+		// If a node with that key exists
+		if (iter.current != nullptr){
+			return iter.current->pair_type.second;
+		}
+		else{
+			// Create new node with random value
+			std::pair<Tkey, Tvalue> new_node(x, Tvalue{});
+			insert(new_node);
+			return operator[](x);
+		}
+		
+	}
+	//Tvalue& operator[](Tkey&& x);
 
 	//					###put_to<<###
 
@@ -239,7 +255,6 @@ public:
 			current = current->parent;
 			return *this;
 		}
-
 		// Now if my node has a right child then the next node wiil be the leftmost on the right sub-tree:
 		else{
 			// Move on the right branch
