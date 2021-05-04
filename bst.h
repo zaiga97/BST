@@ -45,7 +45,7 @@ public:
 				}
 				else { // node doesn't exist
 					tmp_node->right_child.reset(new node{x});
-					// add parent
+					tmp_node->right_child->parent = tmp_node;
 					return (std::pair<iterator, bool> (iterator{root.get()}, true));
 				}
 			}
@@ -58,7 +58,7 @@ public:
 				}
 				else { // node doesn't exist
 					tmp_node->left_child.reset(new node{x});
-					// add parent
+					tmp_node->left_child->parent = tmp_node;
 					return (std::pair<iterator, bool> (iterator{root.get()}, true));
 				}
 			}
