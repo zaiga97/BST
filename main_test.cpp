@@ -3,22 +3,23 @@
 
 int main(){
 
-	std::pair<int, int> x(1,2), y(0,1), z(2,4);
+	std::pair<int, int> x(0,0), y(1,1), z(2,2), w(3,3), ww(4,4);
 	BST<int, int> t{};
 	t.insert(x);
 	t.insert(y);
 	t.insert(z);
+	t.insert(w);
+	t.insert(ww);
 
-	//std::cout << (t.root->left_child->left_child) << std::endl;
-	
-	BST<int,int>::iterator it = t.begin();
-	std::cout << it.current->pair_type.first << std::endl;
-	it++;
-	std::cout << it.current->pair_type.first << std::endl;
-	it++;
-	std::cout << it.current->pair_type.first << std::endl;
-	it++;
-	std::cout << it.current  << std::endl;
+	std::cout << (t.root->pair_type.first) << std::endl;
+	std::cout << (t.root->right_child.get()->pair_type.first) << std::endl;
+
+	std::cout << t;
+
+	t.balance();
+
+	std::cout << (t.root->pair_type.first) << std::endl;
+	std::cout << (t.root->right_child.get()->pair_type.first) << std::endl;
 
 	std::cout << t;
 

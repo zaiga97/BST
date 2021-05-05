@@ -2,7 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <memory>
-
+#include <queue>
 
 template<typename Tkey, typename Tvalue, typename Tcompare = std::less<Tkey>>
 class BST{
@@ -151,8 +151,50 @@ public:
 	//const_iterator find(const Tkey& x) const;
 
 	//					###balance();###
+	std::queue<int> build_balace_queue(int i, int f){
+		static std::queue<int> q{};
+		if (f == i){
+			q.push(i);
+		}
+		else if (f-i+1 <= 2){
+			q.push(i);
+			q.push(f);
+		}
+		else{
+			int m = i + (f-i)/2;
+			q.push(m);
 
-	//void balance();
+			build_balace_queue(i, m-1);
+			build_balace_queue(m+1, f);
+		}
+		return q;
+	}
+
+	void balance(){
+		// save all tree content in an array
+		std::vector<std::pair<Tkey, Tvalue>> t_content{};
+		for (auto x:*this){
+			t_content.push_back(x);
+		}
+		//std::cout << n << std::endl;
+		//std::cout << t_content[1].second << std::endl;
+
+		// build a queque for insertion
+		auto queue = build_balace_queue(0, t_content.size()-1);
+
+		// build a balaced tree
+		BST<Tkey, Tvalue> tmp_t{};
+
+		while (!queue.empty())
+		{
+		   	tmp_t.insert(t_content[queue.front()]);
+		   	queue.pop();
+		}
+
+		// swap balanced tree and this
+
+		*this = std::move(tmp_t);
+	}
 
 	//					###subscripting###
 
@@ -192,7 +234,8 @@ public:
 	}
 
 	//					###copy and move###
-
+	BST(BST&& t) = default;
+	BST& operator=(BST&& t) = default;
 	//					###erase###
 
 	//void erase(const Tkey& x);
@@ -287,9 +330,9 @@ public:
 	
 
 	// dereference operator
-	Tvalue& operator*()
+	std::pair<Tkey, Tvalue>& operator*()
 	{
-		return current -> pair_type.second;
+		return current -> pair_type;
 	}
 
 	// arrow operator, returns address to value
