@@ -3,6 +3,7 @@
 #include <vector>
 #include <memory>
 #include <queue>
+#include <math.h>
 
 template<typename Tkey, typename Tvalue, typename Tcompare = std::less<Tkey>>
 class BST{
@@ -63,6 +64,7 @@ public:
 				}
 			}
 		}
+		//size ++;
 
 		// The key is already in the tree
 		return (std::pair<iterator, bool> (iterator{}, false));
@@ -70,12 +72,18 @@ public:
 
 	//					###emplace();###
 
-	//template< class... Types >
-	//std::pair<iterator,bool> emplace(Types&&... args);
+	template<class... Types >
+	std::pair<iterator,bool> emplace(Types&&... args){
+		// std::move unconditionally transforms the passed argument in an rvalue
+		// std::forward forwards r(l)values if r(l)values are passed
+		return insert(std::pair<Tkey, Tvalue> (std::forward<Types>(args)...));
+	}
 
 	//					###clear();###
 
-	//void clear();
+	void clear(){
+		root.reset();
+	}
 
 	//					###iterator###
 
@@ -161,7 +169,7 @@ public:
 			q.push(f);
 		}
 		else{
-			int m = i + (f-i)/2;
+			int m = i + ceil((float)(f-i)/2);
 			q.push(m);
 
 			build_balace_queue(i, m-1);
