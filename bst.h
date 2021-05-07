@@ -101,16 +101,14 @@ public:
 
 		return iterator{tmp_node};
 	}
-	//const_iterator begin() const;
-	//const_iterator cbegin() const;
+	const iterator begin() const {return begin();}
+	const iterator cbegin() const {return begin();}
 
 	// return an iterator pointing to the last+1 node
 
-	iterator end(){
-		return iterator{nullptr};
-	}
-	//const_iterator end() const;
-	//const_iterator cend() const;
+	iterator end(){return iterator{nullptr};}
+	const iterator end() const {return iterator{nullptr};}
+	const iterator cend() const {return iterator{nullptr};};
 
 	//					###find();###
 
@@ -156,10 +154,12 @@ public:
 		return iter;
 
 	}
+
+	
 	//const_iterator find(const Tkey& x) const;
 
 	//					###balance();###
-	std::queue<int> build_balace_queue(int i, int f){
+	std::queue<int>& build_balace_queue(int i, int f){
 		static std::queue<int> q{};
 		if (f == i){
 			q.push(i);
@@ -188,7 +188,7 @@ public:
 		//std::cout << t_content[1].second << std::endl;
 
 		// build a queque for insertion
-		auto queue = build_balace_queue(0, t_content.size()-1);
+		auto queue = std::move(build_balace_queue(0, t_content.size()-1));
 
 		// build a balaced tree
 		BST<Tkey, Tvalue> tmp_t{};
@@ -196,6 +196,7 @@ public:
 		while (!queue.empty())
 		{
 		   	tmp_t.insert(t_content[queue.front()]);
+		   	std::cout << queue.front() << " ";
 		   	queue.pop();
 		}
 
@@ -221,20 +222,28 @@ public:
 		}
 		
 	}
-	//Tvalue& operator[](Tkey&& x);
+
+	Tvalue& operator[](Tkey&& x){
+		iterator iter{};
+		iter = find(std::forward<Tkey>(x)); // Need a find(&&) function ??
+		// If a node with that key exists
+		if (iter.current != nullptr){
+			return iter.current->pair_type.second;
+		}
+		else{
+			// Create new node with random value
+			std::pair<Tkey, Tvalue> new_node(std::forward<Tkey>(x), Tvalue{});
+			insert(new_node);
+			return operator[](x);
+		}
+	}
+	
 
 	//					###put_to<<###
 
 	friend std::ostream& operator<<(std::ostream& os, BST& t){
-		/*for (const iterator& x: t){
-			os << x.current->pair_type.second << " ";
-		}
-		os << std::endl;
-		*/
-		iterator x{t.begin()};
-		os << "(" << x.current->pair_type.first << ", " << x.current->pair_type.second << ") ";
-		while ((++x) != t.end()){
-			os << "(" << x.current->pair_type.first << ", " << x.current->pair_type.second << ") ";
+		for (const auto& x: t){
+			os << x.first << " ";
 		}
 		os << std::endl;
 		

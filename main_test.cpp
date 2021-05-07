@@ -17,11 +17,18 @@ int main(){
 	std::cout << t;
 
 	t.balance();
+	std::cout << std::endl;
+	t.balance();
+	std::cout << std::endl;
+
 
 	std::cout << (t.root->pair_type.first) << std::endl;
 	std::cout << (t.root->right_child.get()->pair_type.first) << std::endl;
 
 	std::cout << t;
+
+	auto test = t[2];
+	std::cout << test << std::endl;
 
 	/*int al = 2;
 	int* ptr = &al;
