@@ -37,4 +37,7 @@ int main(){
 
 	print_queue(qu);
 
+	qu = build_balace_queue(0, 5);
+	print_queue(qu);
+
 }
