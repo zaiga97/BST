@@ -21,6 +21,7 @@ public:
 	~BST() = default;
 
 	class iterator;
+	//using const_iterator = iterator<const Tkey, const Tvalue>;
 
 	//					###insert();###
 
@@ -148,7 +149,7 @@ public:
 				}
 			}
 		}
-
+		// handle error where nothing is found
 		// If the search is successful return the iterator to that position
 		iterator iter{tmp_node};
 		return iter;
@@ -158,24 +159,25 @@ public:
 	
 	//const_iterator find(const Tkey& x) const;
 
-	//					###balance();###
-	std::queue<int>& build_balace_queue(int i, int f){
-		static std::queue<int> q{};
+//					###balance();###
+	void build_balace_queue(int i, int f, std::queue<Tkey>* q){
+		// warning, static may stay the same for different trees!
+		//std::queue<int> q{};
 		if (f == i){
-			q.push(i);
+			q->push(i);
 		}
-		else if (f-i+1 <= 2){
-			q.push(i);
-			q.push(f);
+		else if (f-i+1 == 2){
+			q->push(i);
+			q->push(f);
 		}
 		else{
 			int m = i + ceil((float)(f-i)/2);
-			q.push(m);
+			q->push(m);
 
-			build_balace_queue(i, m-1);
-			build_balace_queue(m+1, f);
+			build_balace_queue(i, m-1, q);
+			build_balace_queue(m+1, f, q);
 		}
-		return q;
+		return;
 	}
 
 	void balance(){
@@ -188,25 +190,28 @@ public:
 		//std::cout << t_content[1].second << std::endl;
 
 		// build a queque for insertion
-		auto queue = std::move(build_balace_queue(0, t_content.size()-1));
+		std::queue<Tkey> queue;
+		build_balace_queue(0, t_content.size()-1, &queue);
 
 		// build a balaced tree
 		BST<Tkey, Tvalue> tmp_t{};
 
 		while (!queue.empty())
 		{
+			// queue.front() is the key of the last element in the stack
+			// t_content[queue.front()] is the pair <key, value>
 		   	tmp_t.insert(t_content[queue.front()]);
-		   	std::cout << queue.front() << " ";
+		   	std::cout << queue.front() << " " ;
 		   	queue.pop();
 		}
+		std::cout << std::endl;
 
 		// swap balanced tree and this
 
 		*this = std::move(tmp_t);
 	}
-
 	//					###subscripting###
-
+	/*
 	Tvalue& operator[](const Tkey& x){
 		iterator iter{};
 		iter = find(x);
@@ -222,7 +227,9 @@ public:
 		}
 		
 	}
+	*/
 
+	// check questions
 	Tvalue& operator[](Tkey&& x){
 		iterator iter{};
 		iter = find(std::forward<Tkey>(x)); // Need a find(&&) function ??
@@ -240,7 +247,8 @@ public:
 	
 
 	//					###put_to<<###
-
+	// check why const gives seg fault
+	// has to do with cbegin and cend
 	friend std::ostream& operator<<(std::ostream& os, BST& t){
 		for (const auto& x: t){
 			os << x.first << " ";
@@ -267,7 +275,7 @@ public:
 		}*/
 
 		/*if (iter == nullptr){
-			node doesn't exist, handle erro
+			node doesn't exist, handle error
 		}*/
 
 		/*  3 possible cases:
@@ -277,9 +285,10 @@ public:
 		*	note: the inorder successor is the leftmost node in the subtree to the right of x
 		*/
 
-		// First case: x is a leaf
+		// First case: current is a leaf
 
 		if (!current->right_child.get() && !current->left_child.get()){
+			// add root case
 			// current is a left child
 			if (current->parent->left_child.get() == current){
 				current->parent->left_child.reset(nullptr);
@@ -292,30 +301,29 @@ public:
 			}
 		}
 
-		// Second case: x has just one child
+		// Second case: current has just one child
 		
 		// current has a left child
 		if (!current->right_child.get() && current->left_child.get()){
-			// current is a left child
-			if (current->parent->left_child.get() == current){
-				current->parent->left_child.release();
-				current->parent->left_child.reset(current->left_child.get());
-				current->left_child->parent = current->parent;
+			if (current->parent == nullptr){
+				root.release();
+				root.reset(current->left_child.get());
+				current->left_child->parent = nullptr;
 				current->erase_node();
+				return;
+			}
+			// current is a left child
+			else if (current->parent->left_child.get() == current){
+				/* move_erase takes two args that translate to:
+				* - first arg: 0 if current is a left child, 1 if current is a right child
+				* - second arg: 0 if current has a left child, 1 if current has a right child
+				*/
+				current->move_erase(0, 0);
 				return;
 			}
 			// current is a right child
 			else if (current->parent->right_child.get() == current){
-				current->parent->right_child.release();
-				current->parent->right_child.reset(current->left_child.get());
-				current->left_child->parent = current->parent;
-				current->erase_node();
-				return;
-			}
-			else{
-				root.release();
-				root.reset(current->left_child.get());
-				current->erase_node();
+				current->move_erase(1, 0);
 				return;
 			}
 		}
@@ -327,24 +335,19 @@ public:
 			if (current->parent == nullptr){
 				root.release();
 				root.reset(current->right_child.get());
+				current->right_child->parent = nullptr;
 				current->erase_node();
 				return;
 			}
 
 			// current is a left child
 			else if (current->parent->left_child.get() == current){
-				current->parent->left_child.release();
-				current->parent->left_child.reset(current->right_child.get());
-				current->right_child->parent = current->parent;
-				current->erase_node();
+				current->move_erase(0, 1);
 				return;
 			}
 			// current is a right child
 			else if (current->parent->right_child.get() == current){
-				current->parent->left_child.release();
-				current->parent->left_child.reset(current->right_child.get());
-				current->right_child->parent = current->parent;
-				current->erase_node();
+				current->move_erase(1, 1);
 				return;
 			}
 		}
@@ -355,6 +358,7 @@ public:
 			// swap with the leftmost node in the right subtree marked by current
 			bool found {false};
 			node* child {current->right_child.get()};
+
 			while (!found){
 				if (child->left_child){
 					child = child->left_child.get();
@@ -363,21 +367,25 @@ public:
 					found = true;
 				}
 			}
-			child->parent = current->parent;
-
-			child->left_child.release();
-			child->left_child.reset(current->left_child.get());
 
 			// if child is the right child of current, then its right child will point to null
 			if (current->right_child.get() == child){
 				child->right_child.release();
 				child->right_child.reset(nullptr);
-
-			}
+				}
 			else{
 				child->right_child.release();
 				child->right_child.reset(current->right_child.get());
+				child->right_child->parent = child;
+				// setting the old child's parent to point to nullptr
+				child->parent->left_child.release();
+				child->parent->left_child.reset(nullptr);
 			}
+
+			child->parent = current->parent;
+
+			child->left_child.release();
+			child->left_child.reset(current->left_child.get());
 
 			// current is root
 			if (current->parent == nullptr){
@@ -391,7 +399,7 @@ public:
 			// current is a left node
 			else if (current->parent->left_child.get() == current){
 				current->parent->left_child.release();
-				current->parent->left_child.reset(current->right_child.get());
+				current->parent->left_child.reset(child);
 				current->left_child->parent = child;
 				current->erase_node();
 				return;
@@ -400,7 +408,7 @@ public:
 			// current is a right node
 			else if(current->parent->right_child.get() == current){
 				current->parent->right_child.release();
-				current->parent->right_child.reset(current->right_child.get());
+				current->parent->right_child.reset(child);
 				current->left_child->parent = child;
 				current->erase_node();
 				return;
@@ -449,6 +457,44 @@ struct BST<Tkey, Tvalue, Tcompare>::node{
 
 		return *this;
 	}
+
+	// 					###move_erase###
+
+	void move_erase(int first_lr, int second_lr){
+
+		switch(first_lr){
+			case 0:
+			this->parent->left_child.release();
+			switch(second_lr){
+				case 0:
+				this->parent->left_child.reset(this->left_child.get());
+				this->left_child->parent = this->parent;
+				break;
+				case 1:
+				this->parent->left_child.reset(this->right_child.get());
+				this->right_child->parent = this->parent;
+				break;
+			}
+			break;
+			case 1:
+			this->parent->right_child.release();
+			switch(second_lr){
+				case 0:
+				this->parent->right_child.reset(this->left_child.get());
+				this->left_child->parent = this->parent;
+				break;
+				case 1:
+				this->parent->right_child.reset(this->right_child.get());
+				this->right_child->parent = this->parent;
+				break;
+			}
+
+		}
+
+		this->erase_node();
+
+	}
+
 
 	//					###erase node###
 	void erase_node(){
