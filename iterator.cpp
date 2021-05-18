@@ -4,27 +4,30 @@
 #include <memory>
 
 template<typename Tkey, typename Tvalue, typename Tcompare>
-class BST<Tkey, Tvalue, Tcompare>::iterator{
+template <typename Tpair_i> // Used to make a const_iterator
+class BST<Tkey, Tvalue, Tcompare>::iterator_temp{
+public:
 
 	friend class BST;
+	using node = BST::node;
 
-	using node = BST<Tkey, Tvalue, Tcompare>::node;
-
-	node* current;
+	node* current{nullptr};
 
 	// default ctor
-	iterator() = default;
+	// fix "0" error
+	iterator_temp() = default;
 
 	// iterator ctor from a node
-	iterator(const node* Pcurrent) : current{Pcurrent}{};
+	iterator_temp(node* Pcurrent) : current{Pcurrent}{};
 
-	// post-increment, fix search
-	iterator& operator++()
+	// pre-increment, fix search
+	iterator_temp& operator++()
 	{
 		// If current has no right children then i have to search a new branch to move down
 		if (!current->right_child){
 			// Find the first node for who current is a left descendant
-			while (current->parent.right_child.get() == current){ current = current->parent; }
+			// Also need to check if I reached the root and in case return nullptr
+			while (current->parent && current->parent->right_child.get() == current){ current = current->parent; }
 			current = current->parent;
 			return *this;
 		}
@@ -38,8 +41,8 @@ class BST<Tkey, Tvalue, Tcompare>::iterator{
 		}		
 	}
 
-	// pre-increment
-	iterator operator++(int)
+	// post-increment	
+	iterator_temp operator++(int)
 	{
 		// copy in temp
 		auto tmp{*this};
@@ -48,15 +51,16 @@ class BST<Tkey, Tvalue, Tcompare>::iterator{
 		// return temp
 		return tmp;
 	}
+	
 
 	// dereference operator
-	Tvalue& operator*()
+	Tpair_i& operator*()
 	{
-		return current -> pair_type.second;
+		return current -> pair_type;
 	}
 
 	// arrow operator, returns address to value
-	Tvalue* operator->()
+	Tpair_i* operator->()
 	{
 		/*  meaning:
 			*this = myself
@@ -68,7 +72,7 @@ class BST<Tkey, Tvalue, Tcompare>::iterator{
 
 
 	// sum operator, useless
-	iterator operator+(int n)
+	iterator_temp operator+(int n)
 	{
 		for (unsigned int i = 0; i < n; i++){
 			*this++;
@@ -77,30 +81,16 @@ class BST<Tkey, Tvalue, Tcompare>::iterator{
 	}
 
 	// == operator, should have 2 args?
-	bool operator==(const iterator& tmp) const 
+	bool operator==(const iterator_temp& tmp) const 
 	{
 		// return true if the two current nodes have same key and value
-		return (current->pair_type.first == tmp.current->pair_type.first && current->pair_type.second == tmp.current->pair_type.second);
+		return (current == tmp.current);
 	}
 
 	// != operator
-	bool operator!=(const iterator& tmp) const 
+	bool operator!=(const iterator_temp& tmp) const 
 	{
 		// uses == definition
 		return !(*this == tmp);
 	}
-
-	/*
-
-	iterator  operator++(int)          				{ return pos_++; }
-    iterator& operator++()    			            { ++pos_; return *this; }
-    reference operator* () const                    { return *pos_; }
-    pointer   operator->() const                    { return pos_; }
-    iterator  operator+ (difference_type v)   const { return pos_ + v; }
-    bool      operator==(const iterator& rhs) const { return pos_ == rhs.pos_; }
-    bool      operator!=(const iterator& rhs) const { return pos_ != rhs.pos_; }
-
-    */
-
-
 };

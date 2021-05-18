@@ -9,6 +9,7 @@
 // use tcompare
 template<typename Tkey, typename Tvalue, typename Tcompare = std::less<Tkey>>
 class BST{
+
 public:
 
 	struct node; 
@@ -22,10 +23,10 @@ public:
 	// default dtor
 	~BST() noexcept = default;
 
-	template <typename Tkey_i, typename Tvalue_i>
-	class iterator_temp;
-	using iterator = iterator_temp<const Tkey, Tvalue>;
-	using const_iterator = iterator_temp<const Tkey, const Tvalue>;
+	template <typename Tpair_i>
+	class _iterator;
+	using iterator = _iterator<std::pair<Tkey, Tvalue>>;
+	using const_iterator = _iterator<const std::pair<Tkey, Tvalue>>;
 
 	//					###insert();###
 
@@ -100,10 +101,11 @@ public:
 	//					###iterator###
 
 	// return an iterator pointing to the leftmost node
-	iterator begin() {
-
+	// note that if it's moved outside it's better to call it inlineù
+	// also is probably better if it's a private member
+	constexpr node* _begin() const noexcept{
 		if (!root){
-			return iterator{nullptr};
+			return nullptr;
 		}
 
 		node* tmp_node = root.get();
@@ -111,50 +113,32 @@ public:
 			tmp_node = tmp_node->left_child.get();
 		}
 
-		return iterator{tmp_node};
-	}
-	const_iterator begin() const {
-
-		if (!root){
-			return const_iterator{nullptr};
-		}
-
-		node* tmp_node = root.get();
-		while (tmp_node->left_child){
-			tmp_node = tmp_node->left_child.get();
-		}
-
-		return const_iterator{tmp_node};
+		return tmp_node;
 	}
 
-	const_iterator cbegin() const {
-
-		if (!root){
-			return const_iterator{nullptr};
-		}
-
-		node* tmp_node = root.get();
-		while (tmp_node->left_child){
-			tmp_node = tmp_node->left_child.get();
-		}
-
-		return const_iterator{tmp_node};
-	}
+	constexpr iterator begin() noexcept {return iterator{_begin()};}	
+	constexpr const_iterator begin() const noexcept {return const_iterator{_begin()};}
+	constexpr const_iterator cbegin() const noexcept{return const_iterator{_begin()};}
 
 	// return an iterator pointing to the last+1 node
 
-	iterator end() {return iterator{nullptr};}
-	const_iterator end() const {return const_iterator{nullptr};}
-	const_iterator cend() const {return const_iterator{nullptr};};
+	constexpr iterator end() noexcept {return iterator{nullptr};}
+	constexpr const_iterator end() const noexcept {return const_iterator{nullptr};}
+	constexpr const_iterator cend() const noexcept {return const_iterator{nullptr};}
 
 	//					###find();###
 
 	iterator find(const Tkey& search_key){
+		/* 	A fuction to search a key in the tree.
+			Return an iterator to the first node with the
+			key == search_key found in the tree.
+			If the key is not present the it returns an 
+			iterator pointing to one past the last element,
+			a.k.a end()
+		*/
+
 		// Base case for bst tree with no root
-		if (! root){
-			iterator iter {};
-			return iter;
-		}
+		if (! root) return iterator{};
 
 		// Tmp node used during the search
 		node* tmp_node {root.get()};
@@ -164,51 +148,51 @@ public:
 		while (tmp_key != search_key){
 	
 			// Case search_key is higher than current key
-			if (search_key > tmp_key){ // Tcompare ??
+			if (search_key > tmp_key){
 				if (tmp_node->right_child){
 					tmp_node = tmp_node->right_child.get();
 					tmp_key = tmp_node->pair_type.first;
 				}
-				else { // node doesn't exist
-					return end();
-				}
+				else return end(); // Node doesn't exist
 			}
 
 			// Case search_key is higher than current key
-			else{ // Tcompare ??
+			else{
 				if (tmp_node->left_child){
 					tmp_node = tmp_node->left_child.get();
 					tmp_key = tmp_node->pair_type.first;
 				}
-				else { // node doesn't exist
-					return end();
-				}
+				else return end(); // Node doesn't exist
 			}
 		}
-		// handle error where nothing is found
 		// If the search is successful return the iterator to that position
-		iterator iter{tmp_node};
-		return iter;
-
+		return iterator{tmp_node};
 	}
 
 	
 	//const_iterator find(const Tkey& x) const;
 
 //					###balance();###
-	void build_balace_queue(int i, int f, std::queue<Tkey>* q){
-		// warning, static may stay the same for different trees!
-		//std::queue<int> q{};
+	void build_balace_queue(int i, int f, std::queue<int>& q){
+		/* 	A recursive function that build a queue of integer
+			positions in such a way that if we insert a sorted
+			array in this order into an empty tree we end up
+			with a balaced tree.
+		*/
+
+		// Base cases:
 		if (f == i){
-			q->push(i);
+			q.push(i);
 		}
 		else if (f-i+1 == 2){
-			q->push(i);
-			q->push(f);
+			q.push(i);
+			q.push(f);
 		}
+
+		// Recursive step
 		else{
-			int m = i + ceil((float)(f-i)/2);
-			q->push(m);
+			int m = i + ceil((f-i)/2.);
+			q.push(m);
 
 			build_balace_queue(i, m-1, q);
 			build_balace_queue(m+1, f, q);
@@ -217,35 +201,33 @@ public:
 	}
 
 	void balance(){
-		// save all tree content in an array
+		// Save all tree content in an array
+		// Note that it's sorted because of how we traverse the tree
 		std::vector<std::pair<Tkey, Tvalue>> t_content{};
 		for (auto x:*this){
 			t_content.push_back(x);
 		}
-		//std::cout << n << std::endl;
-		//std::cout << t_content[1].second << std::endl;
 
-		// build a queque for insertion
-		std::queue<Tkey> queue;
-		build_balace_queue(0, t_content.size()-1, &queue);
+		// Build an queque of integer positions for later insertion
+		std::queue<int> balance_queue{};
+		build_balace_queue(0, t_content.size()-1, balance_queue);
 
-		// build a balaced tree
+		// Build an empty tree
 		BST<Tkey, Tvalue> tmp_t{};
 
-		while (!queue.empty())
+		while (!balance_queue.empty())
 		{
-			// queue.front() is the key of the last element in the stack
-			// t_content[queue.front()] is the pair <key, value>
-		   	tmp_t.insert(t_content[queue.front()]);
-		   	std::cout << queue.front() << " " ;
-		   	queue.pop();
+			// queue.front() is the integer position of the next pair to be inserted
+			// t_content[queue.front()] is the pair <key, value> to be inserted 
+		   	tmp_t.insert(t_content[balance_queue.front()]);
+		   	balance_queue.pop();
 		}
-		std::cout << std::endl;
 
-		// swap balanced tree and this
-
+		// Swap balanced tree and this
 		*this = std::move(tmp_t);
 	}
+
+
 	//					###subscripting###
 
 	Tvalue& operator[](const Tkey& x) noexcept{
@@ -282,8 +264,6 @@ public:
 	
 
 	//					###put_to<<###
-	// check why const gives seg fault
-	// has to do with cbegin and cend
 	friend std::ostream& operator<<(std::ostream& os, const BST& t){
 		for (const auto& x: t){
 			os << x.first << " ";
@@ -552,24 +532,24 @@ struct BST<Tkey, Tvalue, Tcompare>::node{
 };
 
 template<typename Tkey, typename Tvalue, typename Tcompare>
-template <typename Tkey_i, typename Tvalue_i>
-class BST<Tkey, Tvalue, Tcompare>::iterator_temp{
-public:
-	friend class BST;
+template <typename Tpair_i> // Used to make a const_iterator
+class BST<Tkey, Tvalue, Tcompare>::_iterator{
 
-	using node = BST<Tkey, Tvalue, Tcompare>::node;
+	friend class BST;
+	using node = BST::node;
 
 	node* current{nullptr};
 
+public:
+
 	// default ctor
-	// fix "0" error
-	iterator_temp() = default;
+	_iterator() = default;
 
 	// iterator ctor from a node
-	iterator_temp(node* Pcurrent) : current{Pcurrent}{};
+	explicit _iterator(node* pcurrent) : current{pcurrent}{};
 
 	// pre-increment, fix search
-	iterator_temp& operator++()
+	_iterator& operator++()
 	{
 		// If current has no right children then i have to search a new branch to move down
 		if (!current->right_child){
@@ -589,9 +569,8 @@ public:
 		}		
 	}
 
-	// post-increment
-	
-	iterator_temp operator++(int)
+	// post-increment	
+	_iterator operator++(int)
 	{
 		// copy in temp
 		auto tmp{*this};
@@ -603,13 +582,13 @@ public:
 	
 
 	// dereference operator
-	std::pair<Tkey, Tvalue>& operator*()
+	Tpair_i& operator*()
 	{
 		return current -> pair_type;
 	}
 
 	// arrow operator, returns address to value
-	Tvalue* operator->()
+	Tpair_i* operator->()
 	{
 		/*  meaning:
 			*this = myself
@@ -621,7 +600,7 @@ public:
 
 
 	// sum operator, useless
-	iterator_temp operator+(int n)
+	_iterator operator+(int n)
 	{
 		for (unsigned int i = 0; i < n; i++){
 			*this++;
@@ -630,17 +609,16 @@ public:
 	}
 
 	// == operator, should have 2 args?
-	bool operator==(const iterator_temp& tmp) const 
+	bool operator==(const _iterator& tmp) const 
 	{
 		// return true if the two current nodes have same key and value
 		return (current == tmp.current);
 	}
 
 	// != operator
-	bool operator!=(const iterator_temp& tmp) const 
+	bool operator!=(const _iterator& tmp) const 
 	{
 		// uses == definition
 		return !(*this == tmp);
 	}
-
 };
