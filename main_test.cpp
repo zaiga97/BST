@@ -27,7 +27,10 @@ int main(){
 
 	std::cout << t;
 
-	auto test = t[2];
+	auto abcd = t.find(22);
+	std::cout << &abcd << std::endl;
+
+	auto test = t[22];
 	std::cout << test << std::endl;
 
 	/*int al = 2;
