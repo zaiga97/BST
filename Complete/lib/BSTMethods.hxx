@@ -7,9 +7,6 @@
 #include <math.h>
 #include <stdexcept>
 
-template <typename Tkey, typename Tvalue>
-using node = _node<Tkey, Tvalue>;
-
 
 //					### build balance queue ###
 template<typename Tkey, typename Tvalue, typename Tcompare>
@@ -33,6 +30,21 @@ void BST<Tkey, Tvalue, Tcompare>::build_balance_queue(int i, int f, std::queue<i
 	}
 	return;
 }
+
+template<typename Tkey, typename Tvalue, typename Tcompare>
+void BST<Tkey, Tvalue, Tcompare>::build_copy_queue(node* root, std::queue<std::pair<Tkey, Tvalue>>& q){
+    // Add the current node content
+    q.push(root->pair_type);
+
+    // If there are child recursive call to this function
+    if(root->left_child)
+        build_copy_queue(root->left_child.get(), q);
+    if(root->right_child)
+        build_copy_queue(root->right_child.get(), q);
+
+    return;
+}
+
 
 //					### balance ###
 template<typename Tkey, typename Tvalue, typename Tcompare>
@@ -66,13 +78,12 @@ void BST<Tkey, Tvalue, Tcompare>::balance(){
 //					### _insert ###
 template<typename Tkey, typename Tvalue, typename Tcompare>
 template<typename O>
-std::pair<_iterator<const Tkey, Tvalue>, bool> BST<Tkey, Tvalue, Tcompare>::_insert(O&& x){
-	using node = _node<Tkey, Tvalue>;
+std::pair<typename BST<Tkey, Tvalue, Tcompare>::iterator, bool> BST<Tkey, Tvalue, Tcompare>::_insert(O&& x){
 	Tkey search_key{std::forward<O>(x).first};	
 	// Base case for bst tree with no root
 	if (!root){
 		root.reset(new node{std::forward<O>(x)});
-		return (std::pair<_iterator<const Tkey, Tvalue>, bool> (_iterator<const Tkey, Tvalue>{root.get()}, true));
+		return (std::pair<BST<Tkey, Tvalue, Tcompare>::iterator, bool> (BST<Tkey, Tvalue, Tcompare>::iterator{root.get()}, true));
 	}
 
 	// Tmp node used during the search
@@ -89,7 +100,7 @@ std::pair<_iterator<const Tkey, Tvalue>, bool> BST<Tkey, Tvalue, Tcompare>::_ins
 			else { // node doesn't exist
 				tmp_node->right_child.reset(new node{std::forward<O>(x)});
 				tmp_node->right_child->parent = tmp_node;
-				return (std::pair<iterator, bool> (iterator{root.get()}, true));
+				return (std::pair<BST<Tkey, Tvalue, Tcompare>::iterator, bool> (BST<Tkey, Tvalue, Tcompare>::iterator{root.get()}, true));
 			}
 		}
 
@@ -102,13 +113,13 @@ std::pair<_iterator<const Tkey, Tvalue>, bool> BST<Tkey, Tvalue, Tcompare>::_ins
 			else { // node doesn't exist
 				tmp_node->left_child.reset(new node{std::forward<O>(x)});
 				tmp_node->left_child->parent = tmp_node;
-				return (std::pair<iterator, bool> (iterator{root.get()}, true));
+				return (std::pair<BST<Tkey, Tvalue, Tcompare>::iterator, bool> (BST<Tkey, Tvalue, Tcompare>::iterator{root.get()}, true));
 			}
 		}
 	}
 
 	// The key is already in the tree
-	return (std::pair<iterator, bool> (iterator{nullptr}, false));
+	return (std::pair<BST<Tkey, Tvalue, Tcompare>::iterator, bool> (BST<Tkey, Tvalue, Tcompare>::iterator{nullptr}, false));
 }
 
 //					### _begin ###
@@ -159,13 +170,13 @@ _node<Tkey, Tvalue>* BST<Tkey, Tvalue, Tcompare>::_find(const Tkey& search_key){
 
 //					### find ###
 template<typename Tkey, typename Tvalue, typename Tcompare>
-_iterator<const Tkey, Tvalue> BST<Tkey, Tvalue, Tcompare>::find(const Tkey& search_key){
+typename BST<Tkey, Tvalue, Tcompare>::iterator BST<Tkey, Tvalue, Tcompare>::find(const Tkey& search_key){
 		return iterator{_find(search_key)};
 }
 
 //					### find ###
 template<typename Tkey, typename Tvalue, typename Tcompare>
-_iterator<const Tkey, const Tvalue> BST<Tkey, Tvalue, Tcompare>::find(const Tkey& search_key) const{
+typename BST<Tkey, Tvalue, Tcompare>::const_iterator BST<Tkey, Tvalue, Tcompare>::find(const Tkey& search_key) const{
 		return const_iterator{_find(search_key)};
 }
 
@@ -203,22 +214,44 @@ Tvalue& BST<Tkey, Tvalue, Tcompare>::operator[](Tkey&& x) noexcept{
 	}
 }
 
+template<typename Tkey, typename Tvalue, typename Tcompare>
+BST<Tkey, Tvalue, Tcompare>::BST(BST<Tkey, Tvalue, Tcompare>& other_t){
+    // Base case for a empty tree
+    if (!other_t.root){
+        BST new_tree{};
+        *this =  std::move(new_tree);
+        return;
+    }  
+    // Build an queque with the content of the tree preserving the shape of the tree
+    std::queue<std::pair<Tkey, Tvalue>> copy_queue{};
+    build_copy_queue(other_t.root.get() , copy_queue);
+
+    // Build an empty tree
+    BST<Tkey, Tvalue> tmp_t{};
+
+    while (!copy_queue.empty())
+    {
+        // queue.front() is the integer position of the next pair to be inserted
+        // t_content[queue.front()] is the pair <key, value> to be inserted 
+           tmp_t.insert(copy_queue.front());
+           copy_queue.pop();
+    }
+    // Swap balanced tree and this
+    *this = std::move(tmp_t);
+}
 
 
 //					### erase ###
 template<typename Tkey, typename Tvalue, typename Tcompare>
-void erase(const Tkey& x){
+void BST<Tkey, Tvalue, Tcompare>::erase(const Tkey& x){
 
-	_iterator<const Tkey, Tvalue> iter {find(x)};
-	node<Tkey, Tvalue>* current{iter.current};
+	typename BST<Tkey, Tvalue, Tcompare>::iterator iter {find(x)};
+	node* current{iter.current};
 
-	/*if (!iter.current){
-		tree is empty, handle return
-	}*/
-
-	/*if (iter == nullptr){
-		node doesn't exist, handle return
-	}*/
+	if (!iter.current){
+		std::cout << "Node is not present" << std::endl;
+		return;
+	}
 
 	// First case: current is a leaf
 

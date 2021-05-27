@@ -7,16 +7,27 @@
 #include <queue>
 #include <math.h>
 #include <stdexcept>
-	
+
+
 /** \class _iterator
-	\brief iterator class templated over std::pair<Tkey, Tvalue> with two aliases
-	\tparam Tpair_i template parameter 
+	\brief _iterator is a templated class used for the pythonic
+	for loop syntax. It only contains a raw pointer to a node
+	as a private member and several operators to move
+	in the tree and compare/extract informations from the node 
+	it's pointing at. The common use is to travers the tree from 
+	the smallest key node to the biggest one.
+	\tparam Tkey_i: used to template node's Tkey type
+	\tparam Tvalue_i: used to template node's Tvalue type
+	\tparam Tpair_i: used to template constness of iterator
 */
-template <typename Tkey_i, typename Tvalue_i>
+template <typename Tkey_i, typename Tvalue_i, typename Tpair_i>
 class _iterator;
 
-/** \struct node
+/** \struct _node
 	\brief Node struct
+	\tparam Tkey Key type
+	\tparam Tvalue Value Type
+	\tparam Tcompare Compare Type
 */
 template <typename Tkey, typename Tvalue>
 struct _node; 
@@ -27,9 +38,13 @@ struct _node;
 	\tparam Tvalue Value Type
 	\tparam Tcompare Compare Type
 */
+
 template<typename Tkey, typename Tvalue, typename Tcompare = std::less<Tkey>>
 class BST{
+
 	using node = _node<Tkey, Tvalue>;
+	using iterator = _iterator<Tkey, Tvalue, std::pair<Tkey, Tvalue>>;
+	using const_iterator = _iterator<Tkey, Tvalue, const std::pair<Tkey, Tvalue>>;
 
 	/**	\brief recursive function that builds a queue of integers such that, using this order
 		to insert a sorted array of nodes into an empty tree we end up with a balanced tree.
@@ -38,6 +53,13 @@ class BST{
 		\param q queue
 	*/
 	void build_balance_queue(int i, int f, std::queue<int>& q);
+
+	/** \brief recursive function that builds a queue of integers such that, using this order
+		to insert a sorted array of nodes into an empty tree we end up with the same tree shape as we started.
+		\param root pointer to node
+		\param q queue
+	*/
+	void build_copy_queue(node* root, std::queue<std::pair<Tkey, Tvalue>>& q);
 
 public:
 
@@ -52,13 +74,6 @@ public:
 
 	/** \brief default destructor */
 	~BST() noexcept = default;
-
-	/** \class _iterator
-		\brief iterator class templated over std::pair<Tkey, Tvalue> with two aliases
-		\tparam Tpair_i template parameter 
-	*/
-	using iterator = _iterator<const Tkey, Tvalue>;
-	using const_iterator = _iterator<const Tkey, const Tvalue>;
 
 	/**	\brief Wrapper for _insert
 		\param std::pair<Tkey, Tvalue>&& x
@@ -197,58 +212,7 @@ public:
 
 	BST(BST&& t) noexcept = default;
 	BST& operator=(BST&& t) noexcept = default;
-
-	void build_copy_queue(node* root, std::queue<std::pair<Tkey, Tvalue>>& q){
-        // Add the current node content
-            q.push(root->pair_type);
-
- 
-
-        // If there are child recursive call to this function
-        if(root->left_child)
-            build_copy_queue(root->left_child.get(), q);
-        if(root->right_child)
-            build_copy_queue(root->right_child.get(), q);
-
- 
-
-        return;
-    }
-
- 
-
-    BST(BST& other_t){
-        // Base case for a empty tree
-        if (!other_t.root){
-            BST new_tree{};
-            *this =  std::move(new_tree);
-            return;
-        }
-        
-        // Build an queque with the content of the tree preserving the shape of the tree
-        std::queue<std::pair<Tkey, Tvalue>> copy_queue{};
-        build_copy_queue(other_t.root.get() , copy_queue);
-
- 
-
-        // Build an empty tree
-        BST<Tkey, Tvalue> tmp_t{};
-
- 
-
-        while (!copy_queue.empty())
-        {
-            // queue.front() is the integer position of the next pair to be inserted
-            // t_content[queue.front()] is the pair <key, value> to be inserted 
-               tmp_t.insert(copy_queue.front());
-               copy_queue.pop();
-        }
-
- 
-
-        // Swap balanced tree and this
-        *this = std::move(tmp_t);
-    }
+    BST(BST& other_t);
 
 
 	//					###erase###
@@ -264,13 +228,6 @@ public:
 
 
 };
-
-/**	\struct BST::node
-	\brief node class
-	\tparam Tkey Key type
-	\tparam Tvalue Value Type
-	\tparam Tcompare Compare Type
-*/
 
 template<typename Tkey, typename Tvalue>
 struct _node{
@@ -311,26 +268,13 @@ struct _node{
 
 };
 
-/** \class BST::_iterator
-	\brief _iterator is a templated class used for the pythonic
-	for loop syntax. It only contains a raw pointer to a node
-	as a private member and several operators to move
-	in the tree and compare/extract informations from the node 
-	it's pointing at. The common use is to travers the tree from 
-	the smallest key node to the biggest one.
-*/
-
-template <typename Tkey_i, typename Tvalue_i> // -> node s
+template <typename Tkey_i, typename Tvalue_i, typename Tpair_i> // -> node s
 class _iterator{
+	public:
 	using node = _node<Tkey_i, Tvalue_i>;
-
-	friend class BST;
-	//friend class node;
 
 	/** /brief current node the iterator is pointing to*/
 	node* current{nullptr};
-
-public:
 
 	// Constructors
 	/** \brief Default constructor, the iterator points to nullptr. */
@@ -359,7 +303,7 @@ public:
 		Note that the reference could be const or not depeding on the
 		template of the _iterator.
 	*/
-	Tpair& operator*(){return current -> pair_type;}
+	Tpair_i& operator*(){return current -> pair_type;}
 
 	/** \brief Overloading of the arrow operator
 		\return pointer to the pair type stored in the node.
@@ -367,7 +311,7 @@ public:
 		template of the _iterator.
 	*/
 
-	Tpair* operator->(){return &(*(*this));}
+	Tpair_i* operator->(){return &(*(*this));}
 
 	// Boolean operators
 	/** \brief Overloading of the equality operator
@@ -383,7 +327,7 @@ public:
 
 
 
-#include "../lib/bst.cpp"
-#include "../lib/node.cpp"
-#include "../lib/iterator.cpp"
+#include "../lib/BSTMethods.hxx"
+#include "../lib/NodeMethods.hxx"
+#include "../lib/IteratorMethods.hxx"
 #endif

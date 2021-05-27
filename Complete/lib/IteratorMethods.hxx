@@ -10,8 +10,8 @@
 
 
 //					### pre-increment operator ###
-template <typename Tkey_i, typename Tvalue_i>
-_iterator<Tkey_i, Tvalue_i>& _iterator<Tkey_i, Tvalue_i>::operator++(){
+template <typename Tkey_i, typename Tvalue_i, typename Tpair_i>
+_iterator<Tkey_i, Tvalue_i, Tpair_i>& _iterator<Tkey_i, Tvalue_i, Tpair_i>::operator++(){
 	// If current has no right children then i have to search a new branch to move down
 	if (!current->right_child){
 		// Find the first node for who current is a left descendant
@@ -31,8 +31,8 @@ _iterator<Tkey_i, Tvalue_i>& _iterator<Tkey_i, Tvalue_i>::operator++(){
 }
 
 //					### post-increment operator ###
-template <typename Tkey_i, typename Tvalue_i>
-_iterator<Tkey_i, Tvalue_i> _iterator<Tkey_i, Tvalue_i>::operator++(int){
+template <typename Tkey_i, typename Tvalue_i, typename Tpair_i>
+_iterator<Tkey_i, Tvalue_i, Tpair_i> _iterator<Tkey_i, Tvalue_i, Tpair_i>::operator++(int){
 	// copy in temp
 	auto tmp{*this};
 	// pre increment
@@ -41,9 +41,10 @@ _iterator<Tkey_i, Tvalue_i> _iterator<Tkey_i, Tvalue_i>::operator++(int){
 	return tmp;
 }
 
+
 //					### n-increment operator ###
-template <typename Tkey_i, typename Tvalue_i>
-_iterator<Tkey_i, Tvalue_i> _iterator<Tkey_i, Tvalue_i>::operator+(int n){
+template <typename Tkey_i, typename Tvalue_i, typename Tpair_i>
+_iterator<Tkey_i, Tvalue_i, Tpair_i> _iterator<Tkey_i, Tvalue_i, Tpair_i>::operator+(int n){
 	for (unsigned int i = 0; i < n; i++){
 		*this++;
 	}
