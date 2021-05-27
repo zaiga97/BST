@@ -1,0 +1,135 @@
+\hypertarget{class__iterator}{}\doxysection{\+\_\+iterator Class Reference}
+\label{class__iterator}\index{\_iterator@{\_iterator}}
+
+
+\mbox{\hyperlink{class__iterator}{\+\_\+iterator}} is a templated class used for the pythonic for loop syntax. It only contains a raw pointer to a node as a private member and several operators to move in the tree and compare/extract informations from the node it\textquotesingle{}s pointing at. The common use is to travers the tree from the smallest key node to the biggest one.  
+
+
+
+
+{\ttfamily \#include $<$bst.\+h$>$}
+
+
+
+Collaboration diagram for \+\_\+iterator\+:
+% FIG 0
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class__iterator_a6d76626bb7b2f3ce6949acd8d9642788}\label{class__iterator_a6d76626bb7b2f3ce6949acd8d9642788}} 
+using {\bfseries node} = \mbox{\hyperlink{struct__node}{\+\_\+node}}$<$ Tkey\+\_\+i, Tvalue\+\_\+i $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class__iterator_a7d988318323e94182cfe2a0400205982}\label{class__iterator_a7d988318323e94182cfe2a0400205982}} 
+\mbox{\hyperlink{class__iterator_a7d988318323e94182cfe2a0400205982}{\+\_\+iterator}} ()=default
+\begin{DoxyCompactList}\small\item\em Default constructor, the iterator points to nullptr. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class__iterator_a9551c2ba58a00c054fc4b6fe1e616536}\label{class__iterator_a9551c2ba58a00c054fc4b6fe1e616536}} 
+\mbox{\hyperlink{class__iterator_a9551c2ba58a00c054fc4b6fe1e616536}{\+\_\+iterator}} (\mbox{\hyperlink{struct__node}{node}} $\ast$pcurrent)
+\begin{DoxyCompactList}\small\item\em Custom constructor, the iterator points to the passed pointer. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class__iterator_aa9830619bdd7927786c073e82e6cd18c}\label{class__iterator_aa9830619bdd7927786c073e82e6cd18c}} 
+\mbox{\hyperlink{class__iterator}{\+\_\+iterator}} \& \mbox{\hyperlink{class__iterator_aa9830619bdd7927786c073e82e6cd18c}{operator++}} ()
+\begin{DoxyCompactList}\small\item\em Overloading of the pre-\/increment operator. This pre-\/increment operator is the core of the \mbox{\hyperlink{class__iterator}{\+\_\+iterator}} class and it\textquotesingle{}s responsable for the traversing of the tree. All it does is changing the node the iterator is pointing to the one in the tree with the next larger key. If such a node it\textquotesingle{}s not present, (it\textquotesingle{}s pointing to the node with biggest key in the tree), returns an iterator pointing to a nullptr. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class__iterator_acf4736547024274bd63a8fc273d75cc5}\label{class__iterator_acf4736547024274bd63a8fc273d75cc5}} 
+\mbox{\hyperlink{class__iterator}{\+\_\+iterator}} \mbox{\hyperlink{class__iterator_acf4736547024274bd63a8fc273d75cc5}{operator++}} (int)
+\begin{DoxyCompactList}\small\item\em Overloading of the post-\/increment operator. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class__iterator_ab396c609d956597be579f602c2496f61}\label{class__iterator_ab396c609d956597be579f602c2496f61}} 
+\mbox{\hyperlink{class__iterator}{\+\_\+iterator}} \mbox{\hyperlink{class__iterator_ab396c609d956597be579f602c2496f61}{operator+}} (int n)
+\begin{DoxyCompactList}\small\item\em Overloading of the n-\/increment operator. No bound checking. \end{DoxyCompactList}\item 
+Tpair\+\_\+i \& \mbox{\hyperlink{class__iterator_ac5302ed511b61b4bc8fd06572d31d772}{operator$\ast$}} ()
+\begin{DoxyCompactList}\small\item\em Overloading of the dereference operator. \end{DoxyCompactList}\item 
+Tpair\+\_\+i $\ast$ \mbox{\hyperlink{class__iterator_af7bfbc91d84fa32ffcb396d937ea5b5a}{operator-\/$>$}} ()
+\begin{DoxyCompactList}\small\item\em Overloading of the arrow operator. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class__iterator_ae59a908a6adfe7aac101d13ee8bdfceb}{operator==}} (const \mbox{\hyperlink{class__iterator}{\+\_\+iterator}} \&tmp) const
+\begin{DoxyCompactList}\small\item\em Overloading of the equality operator. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class__iterator_a072fb86460a58bc95e956fbeefc725dd}{operator!=}} (const \mbox{\hyperlink{class__iterator}{\+\_\+iterator}} \&tmp) const
+\begin{DoxyCompactList}\small\item\em Overloading of the equality operator. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct__node}{node}} $\ast$ \mbox{\hyperlink{class__iterator_a70f9c0c5e572de7b859a4c53c7559a19}{current}} \{nullptr\}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{class__iterator}{\+\_\+iterator}} is a templated class used for the pythonic for loop syntax. It only contains a raw pointer to a node as a private member and several operators to move in the tree and compare/extract informations from the node it\textquotesingle{}s pointing at. The common use is to travers the tree from the smallest key node to the biggest one. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Tkey\+\_\+i} & used to template node\textquotesingle{}s Tkey type \\
+\hline
+{\em Tvalue\+\_\+i} & used to template node\textquotesingle{}s Tvalue type \\
+\hline
+{\em Tpair\+\_\+i} & used to template constness of iterator \\
+\hline
+\end{DoxyTemplParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class__iterator_a072fb86460a58bc95e956fbeefc725dd}\label{class__iterator_a072fb86460a58bc95e956fbeefc725dd}} 
+\index{\_iterator@{\_iterator}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!\_iterator@{\_iterator}}
+\doxysubsubsection{\texorpdfstring{operator"!=()}{operator!=()}}
+{\footnotesize\ttfamily bool \+\_\+iterator\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class__iterator}{\+\_\+iterator}} \&}]{tmp }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Overloading of the equality operator. 
+
+\begin{DoxyReturn}{Returns}
+bool\+: true if the two iterator are not pointing to the same node 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class__iterator_ac5302ed511b61b4bc8fd06572d31d772}\label{class__iterator_ac5302ed511b61b4bc8fd06572d31d772}} 
+\index{\_iterator@{\_iterator}!operator$\ast$@{operator$\ast$}}
+\index{operator$\ast$@{operator$\ast$}!\_iterator@{\_iterator}}
+\doxysubsubsection{\texorpdfstring{operator$\ast$()}{operator*()}}
+{\footnotesize\ttfamily Tpair\+\_\+i\& \+\_\+iterator\+::operator$\ast$ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Overloading of the dereference operator. 
+
+\begin{DoxyReturn}{Returns}
+reference to the pair type stored in the node. Note that the reference could be const or not depeding on the template of the \mbox{\hyperlink{class__iterator}{\+\_\+iterator}}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class__iterator_af7bfbc91d84fa32ffcb396d937ea5b5a}\label{class__iterator_af7bfbc91d84fa32ffcb396d937ea5b5a}} 
+\index{\_iterator@{\_iterator}!operator-\/$>$@{operator-\/$>$}}
+\index{operator-\/$>$@{operator-\/$>$}!\_iterator@{\_iterator}}
+\doxysubsubsection{\texorpdfstring{operator-\/$>$()}{operator->()}}
+{\footnotesize\ttfamily Tpair\+\_\+i$\ast$ \+\_\+iterator\+::operator-\/$>$ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Overloading of the arrow operator. 
+
+\begin{DoxyReturn}{Returns}
+pointer to the pair type stored in the node. Note that the reference could be const or not depeding on the template of the \mbox{\hyperlink{class__iterator}{\+\_\+iterator}}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class__iterator_ae59a908a6adfe7aac101d13ee8bdfceb}\label{class__iterator_ae59a908a6adfe7aac101d13ee8bdfceb}} 
+\index{\_iterator@{\_iterator}!operator==@{operator==}}
+\index{operator==@{operator==}!\_iterator@{\_iterator}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily bool \+\_\+iterator\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class__iterator}{\+\_\+iterator}} \&}]{tmp }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Overloading of the equality operator. 
+
+\begin{DoxyReturn}{Returns}
+bool\+: true if the two iterator are pointing to the same node 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class__iterator_a70f9c0c5e572de7b859a4c53c7559a19}\label{class__iterator_a70f9c0c5e572de7b859a4c53c7559a19}} 
+\index{\_iterator@{\_iterator}!current@{current}}
+\index{current@{current}!\_iterator@{\_iterator}}
+\doxysubsubsection{\texorpdfstring{current}{current}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct__node}{node}}$\ast$ \+\_\+iterator\+::current \{nullptr\}}
+
+/brief current node the iterator is pointing to 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+bst.\+h\end{DoxyCompactItemize}
