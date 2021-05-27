@@ -320,7 +320,7 @@ struct _node{
 	the smallest key node to the biggest one.
 */
 
-template <typename Tkey_i, typename Tvalue_i> // -> node
+template <typename Tkey_i, typename Tvalue_i> // -> node s
 class _iterator{
 	using node = _node<Tkey_i, Tvalue_i>;
 
