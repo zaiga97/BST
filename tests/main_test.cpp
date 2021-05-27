@@ -1,5 +1,6 @@
 #include <iostream>
-#include "bst.h"
+#include "../include/bst.h"
+
 
 int main(){
 
@@ -33,19 +34,8 @@ int main(){
 	auto test = t[22];
 	std::cout << test << std::endl;
 
-	/*int al = 2;
-	int* ptr = &al;
-	std::cout << al << std::endl;
-	al++;
-	std::cout << ptr << " " << &al << " " << *ptr << std::endl;*/
-
-	// al = value of al
-	// &al = address of al
-	// *ptr = value of al
-	// ptr = address of al
-	// &ptr = address of ptr
-
-
+	auto t2 = t;
+	std::cout << t2 << std::endl;
 	return 0;
 
 }
