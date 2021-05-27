@@ -238,7 +238,7 @@ BST<Tkey, Tvalue, Tcompare>::BST(BST<Tkey, Tvalue, Tcompare>& other_t){
     }
     // Swap balanced tree and this
     *this = std::move(tmp_t);
-}
+} 
 
 
 //					### erase ###

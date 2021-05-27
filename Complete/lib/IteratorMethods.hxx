@@ -15,7 +15,7 @@ _iterator<Tkey_i, Tvalue_i, Tpair_i>& _iterator<Tkey_i, Tvalue_i, Tpair_i>::oper
 	// If current has no right children then i have to search a new branch to move down
 	if (!current->right_child){
 		// Find the first node for who current is a left descendant
-		// Also need to check if I reached the root and in case return nullptr
+		// Also need to check  if I reached the root and in case return nullptr
 		while (current->parent && current->parent->right_child.get() == current){ current = current->parent; }
 		current = current->parent;
 		return *this;
