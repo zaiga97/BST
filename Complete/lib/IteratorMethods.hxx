@@ -4,7 +4,7 @@
 #include <vector>
 #include <memory>
 #include <queue>
-#include <math.h>
+#include <cmath>
 #include <stdexcept>
 
 

@@ -4,7 +4,7 @@
 #include <vector>
 #include <memory>
 #include <queue>
-#include <math.h>
+#include <cmath>
 #include <stdexcept>
 
 
@@ -83,7 +83,7 @@ std::pair<typename BST<Tkey, Tvalue, Tcompare>::iterator, bool> BST<Tkey, Tvalue
 	// Base case for bst tree with no root
 	if (!root){
 		root.reset(new node{std::forward<O>(x)});
-		return (std::pair<BST<Tkey, Tvalue, Tcompare>::iterator, bool> (BST<Tkey, Tvalue, Tcompare>::iterator{root.get()}, true));
+		return (std::pair<iterator, bool> (iterator{root.get()}, true));
 	}
 
 	// Tmp node used during the search
@@ -100,7 +100,7 @@ std::pair<typename BST<Tkey, Tvalue, Tcompare>::iterator, bool> BST<Tkey, Tvalue
 			else { // node doesn't exist
 				tmp_node->right_child.reset(new node{std::forward<O>(x)});
 				tmp_node->right_child->parent = tmp_node;
-				return (std::pair<BST<Tkey, Tvalue, Tcompare>::iterator, bool> (BST<Tkey, Tvalue, Tcompare>::iterator{root.get()}, true));
+				return (std::pair<iterator, bool> (iterator{root.get()}, true));
 			}
 		}
 
@@ -113,18 +113,18 @@ std::pair<typename BST<Tkey, Tvalue, Tcompare>::iterator, bool> BST<Tkey, Tvalue
 			else { // node doesn't exist
 				tmp_node->left_child.reset(new node{std::forward<O>(x)});
 				tmp_node->left_child->parent = tmp_node;
-				return (std::pair<BST<Tkey, Tvalue, Tcompare>::iterator, bool> (BST<Tkey, Tvalue, Tcompare>::iterator{root.get()}, true));
+				return (std::pair<iterator, bool> (iterator{root.get()}, true));
 			}
 		}
 	}
 
 	// The key is already in the tree
-	return (std::pair<BST<Tkey, Tvalue, Tcompare>::iterator, bool> (BST<Tkey, Tvalue, Tcompare>::iterator{nullptr}, false));
+	return (std::pair<iterator, bool> (iterator{nullptr}, false));
 }
 
 //					### _begin ###
 template<typename Tkey, typename Tvalue, typename Tcompare>
-_node<Tkey, Tvalue>* BST<Tkey, Tvalue, Tcompare>::_begin() const noexcept {
+typename BST<Tkey, Tvalue, Tcompare>::node* BST<Tkey, Tvalue, Tcompare>::_begin() const {
 	if (!root){return nullptr;}
 	node* tmp_node = root.get();
 	while (tmp_node->left_child){
@@ -182,7 +182,7 @@ typename BST<Tkey, Tvalue, Tcompare>::const_iterator BST<Tkey, Tvalue, Tcompare>
 
 //					### subscripting operator ###
 template<typename Tkey, typename Tvalue, typename Tcompare>
-Tvalue& BST<Tkey, Tvalue, Tcompare>::operator[](const Tkey& x) noexcept{
+Tvalue& BST<Tkey, Tvalue, Tcompare>::operator[](const Tkey& x){
 	iterator iter{};
 	iter = find(x);
 	// If a node with that key exists
@@ -199,7 +199,7 @@ Tvalue& BST<Tkey, Tvalue, Tcompare>::operator[](const Tkey& x) noexcept{
 
 //					### subscripting operator ###
 template<typename Tkey, typename Tvalue, typename Tcompare>
-Tvalue& BST<Tkey, Tvalue, Tcompare>::operator[](Tkey&& x) noexcept{
+Tvalue& BST<Tkey, Tvalue, Tcompare>::operator[](Tkey&& x){
 	iterator iter{};
 	iter = find(x);
 	// If a node with that key exists
@@ -215,7 +215,7 @@ Tvalue& BST<Tkey, Tvalue, Tcompare>::operator[](Tkey&& x) noexcept{
 }
 
 template<typename Tkey, typename Tvalue, typename Tcompare>
-BST<Tkey, Tvalue, Tcompare>::BST(BST<Tkey, Tvalue, Tcompare>& other_t){
+BST<Tkey, Tvalue, Tcompare>::BST(const BST<Tkey, Tvalue, Tcompare>& other_t){
     // Base case for a empty tree
     if (!other_t.root){
         BST new_tree{};
@@ -245,7 +245,7 @@ BST<Tkey, Tvalue, Tcompare>::BST(BST<Tkey, Tvalue, Tcompare>& other_t){
 template<typename Tkey, typename Tvalue, typename Tcompare>
 void BST<Tkey, Tvalue, Tcompare>::erase(const Tkey& x){
 
-	typename BST<Tkey, Tvalue, Tcompare>::iterator iter {find(x)};
+	iterator iter {find(x)};
 	node* current{iter.current};
 
 	if (!iter.current){

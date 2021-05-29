@@ -5,7 +5,7 @@
 #include <vector>
 #include <memory>
 #include <queue>
-#include <math.h>
+#include <cmath>
 #include <stdexcept>
 
 
@@ -43,8 +43,6 @@ template<typename Tkey, typename Tvalue, typename Tcompare = std::less<Tkey>>
 class BST{
 
 	using node = _node<Tkey, Tvalue>;
-	using iterator = _iterator<Tkey, Tvalue, std::pair<Tkey, Tvalue>>;
-	using const_iterator = _iterator<Tkey, Tvalue, const std::pair<Tkey, Tvalue>>;
 
 	/**	\brief recursive function that builds a queue of integers such that, using this order
 		to insert a sorted array of nodes into an empty tree we end up with a balanced tree.
@@ -62,6 +60,8 @@ class BST{
 	void build_copy_queue(node* root, std::queue<std::pair<Tkey, Tvalue>>& q);
 
 public:
+	using iterator = _iterator<Tkey, Tvalue, std::pair<Tkey, Tvalue>>;
+	using const_iterator = _iterator<Tkey, Tvalue, const std::pair<Tkey, Tvalue>>;
 
 	/** Yields the implementation-defined strict total order */
 	Tcompare lt;
@@ -113,28 +113,28 @@ public:
 	}
 
 	/** \brief clear the content of the tree */
-	void clear(){
+	void clear() noexcept{
 		root.reset();
 	}
 
 	/** \brief return a pointer to the node with the smallest key 
 		\return node* */
-	node* _begin() const noexcept;
+	node* _begin() const;
 
 	/** \brief Wrapper for _begin
 		\return iterator
 	*/
-	iterator begin() noexcept {return iterator{_begin()};}
+	iterator begin() {return iterator{_begin()};}
 
 	/** \brief Wrapper for _begin
 		\return const_iterator 
 	*/
-	const_iterator begin() const noexcept {return const_iterator{_begin()};}
+	const_iterator begin() const {return const_iterator{_begin()};}
 
 	/** \brief Wrapper for _begin
 		\return const_iterator
 	*/
-	const_iterator cbegin() const noexcept {return const_iterator{_begin()};}
+	const_iterator cbegin() const {return const_iterator{_begin()};}
 
 	/** \brief return a pointer to the the last node + 1
 		\return iterator
@@ -187,14 +187,14 @@ public:
 		\return Tvalue&: reference to the value that is mapped to the key equivalent to x,
 		performing an insertion if the node with such key is not present.
 	*/
-	Tvalue& operator[](const Tkey& x) noexcept;
+	Tvalue& operator[](const Tkey& x);
 
 	/** \brief Overloading of the subscripting operator.
 		\param Tkey&& x.
 		\return Tvalue&: reference to the value that is mapped to the key equivalent to x,
 		performing an insertion if the node with such key is not present.
 	*/
-	Tvalue& operator[](Tkey&& x) noexcept;
+	Tvalue& operator[](Tkey&& x);
 	
 
 	//					###put_to<<###
@@ -212,7 +212,14 @@ public:
 
 	BST(BST&& t) noexcept = default;
 	BST& operator=(BST&& t) noexcept = default;
-    BST(BST& other_t);
+
+    BST(const BST& other_t);
+    BST& operator=(const BST& t){
+    	root.reset();
+    	auto tmp = t;
+    	*this = std::move(tmp);
+    	return *this;
+    }
 
 
 	//					###erase###
@@ -267,10 +274,12 @@ struct _node{
 	void erase_node() noexcept;
 
 };
-
+// template <typename Tnode, typename Tpair>
 template <typename Tkey_i, typename Tvalue_i, typename Tpair_i> // -> node s
 class _iterator{
 	public:
+	// Tnode
+	// using node = _node<Tnode>
 	using node = _node<Tkey_i, Tvalue_i>;
 
 	/** /brief current node the iterator is pointing to*/
@@ -278,7 +287,7 @@ class _iterator{
 
 	// Constructors
 	/** \brief Default constructor, the iterator points to nullptr. */
-	_iterator() = default;
+	_iterator() noexcept = default;
 	/** \brief Custom constructor, the iterator points to the passed pointer. */
 	explicit _iterator(node* pcurrent) : current{pcurrent} {};
 

@@ -5,12 +5,16 @@
 int main(){
 
 	std::pair<int, int> x(0,0), y(1,1), z(2,2), w(3,3), ww(4,4);
-	BST<int, int> t{};
+	BST<int, int> t{}, u{};
 	t.insert(x);
 	t.insert(y);
 	t.insert(z);
 	t.insert(w);
 	t.insert(ww);
+
+	u = t;
+
+	std::cout << u << std::endl;
 
 	std::cout << (t.root->pair_type.first) << std::endl;
 	std::cout << (t.root->right_child.get()->pair_type.first) << std::endl;
@@ -37,6 +41,9 @@ int main(){
 
 	auto t2 = t;
 	std::cout << t2 << std::endl;
+
+
+
 	return 0;
 
 }
