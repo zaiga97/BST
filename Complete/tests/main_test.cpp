@@ -1,49 +1,64 @@
 #include <iostream>
 #include "../include/bst.h"
 
+using namespace std;
+
 
 int main(){
 
-	std::pair<int, int> x(0,0), y(1,1), z(2,2), w(3,3), ww(4,4);
-	BST<int, int> t{}, u{};
-	t.insert(x);
-	t.insert(y);
-	t.insert(z);
-	t.insert(w);
-	t.insert(ww);
+	// Default ctor
+	BST<int, int> bst;
+	cout << "bst:\n" << bst << endl;
 
-	u = t;
+	// Insert (l-value)
+	std::pair<int, int> a{1, 1}, b{2, 2}, c{3, 3};
+	bst.insert(a);
+	bst.insert(b);
+	bst.insert(c);
+	cout << "Inserted 3 nodes:\n" << bst << endl;
 
-	std::cout << u << std::endl;
+	// Insert (r-value)
+	bst.insert(std::pair<int, int> (4, 4));
+	cout << "Inserted 1 node:\n" << bst << endl;
 
-	std::cout << (t.root->pair_type.first) << std::endl;
-	std::cout << (t.root->right_child.get()->pair_type.first) << std::endl;
+	// Emplace
+	bst.emplace(0, 0);
+	cout << "Emplaced 1 node:\n" << bst << endl;
 
-	std::cout << t;
+	// Balance
+	bst.balance();
+	cout << "Balanced tree:\n" << bst << endl;
 
-	t.balance();
-	std::cout << std::endl;
-	t.balance();
-	std::cout << std::endl;
-	t.erase(2397);
+	// Subscripting (l-value)
+	int i{1};
+	cout << "Node with key = 1:\n" << bst[i] << endl;
 
+	// Subscripting (r-value)
+	bst[std::move(i)];
+	cout << "Node with key = 1:\n" << bst[i] << endl;
 
-	std::cout << (t.root->pair_type.first) << std::endl;
-	std::cout << (t.root->right_child.get()->pair_type.first) << std::endl;
+	// Erase
+	bst.erase(1);
+	cout << "Erased node with key = 1:\n" << bst << endl;
 
-	std::cout << t;
+	// Copy ctor
+	BST<int, int> bst_copy{bst};
+	cout << "bst_copy:\n" << bst_copy << endl;
 
-	auto abcd = t.find(22);
-	std::cout << &abcd << std::endl;
+	// Move ctor
+	BST<int, int> bst_move{std::move(bst)};
+	cout << "bst_move:\n" << bst_copy << endl;
 
-	auto test = t[22];
-	std::cout << test << std::endl;
+	// Copy assignement
+	BST<int, int> bst_copy_a{};
+	bst_copy_a = bst_move;
+	cout << "bst_copy_a:\n" << bst_copy_a << endl;
 
-	auto t2 = t;
-	std::cout << t2 << std::endl;
-
+	// Move assignement
+	BST<int, int> bst_move_a{};
+	bst_move_a = std::move(bst_move);
+	cout << "bst_move_a:\n" << bst_move_a << endl;
 
 
 	return 0;
-
 }
