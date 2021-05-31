@@ -22,8 +22,8 @@ using {\bfseries node} = \mbox{\hyperlink{struct__node}{\+\_\+node}}$<$ Tkey\+\_
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class__iterator_a7d988318323e94182cfe2a0400205982}\label{class__iterator_a7d988318323e94182cfe2a0400205982}} 
-\mbox{\hyperlink{class__iterator_a7d988318323e94182cfe2a0400205982}{\+\_\+iterator}} ()=default
+\mbox{\Hypertarget{class__iterator_ab799c15da6c34fe4e4cf9af94c270cb4}\label{class__iterator_ab799c15da6c34fe4e4cf9af94c270cb4}} 
+\mbox{\hyperlink{class__iterator_ab799c15da6c34fe4e4cf9af94c270cb4}{\+\_\+iterator}} () noexcept=default
 \begin{DoxyCompactList}\small\item\em Default constructor, the iterator points to nullptr. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class__iterator_a9551c2ba58a00c054fc4b6fe1e616536}\label{class__iterator_a9551c2ba58a00c054fc4b6fe1e616536}} 
 \mbox{\hyperlink{class__iterator_a9551c2ba58a00c054fc4b6fe1e616536}{\+\_\+iterator}} (\mbox{\hyperlink{struct__node}{node}} $\ast$pcurrent)
@@ -31,8 +31,14 @@ using {\bfseries node} = \mbox{\hyperlink{struct__node}{\+\_\+node}}$<$ Tkey\+\_
 \mbox{\Hypertarget{class__iterator_aa9830619bdd7927786c073e82e6cd18c}\label{class__iterator_aa9830619bdd7927786c073e82e6cd18c}} 
 \mbox{\hyperlink{class__iterator}{\+\_\+iterator}} \& \mbox{\hyperlink{class__iterator_aa9830619bdd7927786c073e82e6cd18c}{operator++}} ()
 \begin{DoxyCompactList}\small\item\em Overloading of the pre-\/increment operator. This pre-\/increment operator is the core of the \mbox{\hyperlink{class__iterator}{\+\_\+iterator}} class and it\textquotesingle{}s responsable for the traversing of the tree. All it does is changing the node the iterator is pointing to the one in the tree with the next larger key. If such a node it\textquotesingle{}s not present, (it\textquotesingle{}s pointing to the node with biggest key in the tree), returns an iterator pointing to a nullptr. \end{DoxyCompactList}\item 
-Tpair\+\_\+i \& \mbox{\hyperlink{class__iterator_ac5302ed511b61b4bc8fd06572d31d772}{operator$\ast$}} ()
+\mbox{\Hypertarget{class__iterator_acf4736547024274bd63a8fc273d75cc5}\label{class__iterator_acf4736547024274bd63a8fc273d75cc5}} 
+\mbox{\hyperlink{class__iterator}{\+\_\+iterator}} \mbox{\hyperlink{class__iterator_acf4736547024274bd63a8fc273d75cc5}{operator++}} (int)
 \begin{DoxyCompactList}\small\item\em Overloading of the post-\/increment operator. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class__iterator_ab396c609d956597be579f602c2496f61}\label{class__iterator_ab396c609d956597be579f602c2496f61}} 
+\mbox{\hyperlink{class__iterator}{\+\_\+iterator}} \mbox{\hyperlink{class__iterator_ab396c609d956597be579f602c2496f61}{operator+}} (int n)
+\begin{DoxyCompactList}\small\item\em Overloading of the n-\/increment operator. No bound checking. \end{DoxyCompactList}\item 
+Tpair\+\_\+i \& \mbox{\hyperlink{class__iterator_ac5302ed511b61b4bc8fd06572d31d772}{operator$\ast$}} ()
+\begin{DoxyCompactList}\small\item\em Overloading of the dereference operator. \end{DoxyCompactList}\item 
 Tpair\+\_\+i $\ast$ \mbox{\hyperlink{class__iterator_af7bfbc91d84fa32ffcb396d937ea5b5a}{operator-\/$>$}} ()
 \begin{DoxyCompactList}\small\item\em Overloading of the arrow operator. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{class__iterator_ae59a908a6adfe7aac101d13ee8bdfceb}{operator==}} (const \mbox{\hyperlink{class__iterator}{\+\_\+iterator}} \&tmp) const
@@ -82,11 +88,9 @@ bool\+: true if the two iterator are not pointing to the same node
 
 
 
-Overloading of the post-\/increment operator. 
+Overloading of the dereference operator. 
 
-Overloading of the n-\/increment operator. No bound checking.
-
-Overloading of the dereference operator \begin{DoxyReturn}{Returns}
+\begin{DoxyReturn}{Returns}
 reference to the pair type stored in the node. Note that the reference could be const or not depeding on the template of the \mbox{\hyperlink{class__iterator}{\+\_\+iterator}}. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{class__iterator_af7bfbc91d84fa32ffcb396d937ea5b5a}\label{class__iterator_af7bfbc91d84fa32ffcb396d937ea5b5a}} 

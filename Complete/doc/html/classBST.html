@@ -62,6 +62,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
@@ -76,6 +77,15 @@ $(function() {
 
 <p><code>#include &lt;<a class="el" href="bst_8h_source.html">bst.h</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a2a382f1bfebf8b7853de87f6393f3545"><td class="memItemLeft" align="right" valign="top"><a id="a2a382f1bfebf8b7853de87f6393f3545"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>iterator</b> = <a class="el" href="class__iterator.html">_iterator</a>&lt; Tkey, Tvalue, std::pair&lt; Tkey, Tvalue &gt; &gt;</td></tr>
+<tr class="separator:a2a382f1bfebf8b7853de87f6393f3545"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af84d2462832ce5df4f8f5e2b0e12eba0"><td class="memItemLeft" align="right" valign="top"><a id="af84d2462832ce5df4f8f5e2b0e12eba0"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>const_iterator</b> = <a class="el" href="class__iterator.html">_iterator</a>&lt; Tkey, Tvalue, const std::pair&lt; Tkey, Tvalue &gt; &gt;</td></tr>
+<tr class="separator:af84d2462832ce5df4f8f5e2b0e12eba0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a1d591dd2c8ac50d11d6880f17ae9e771"><td class="memItemLeft" align="right" valign="top"><a id="a1d591dd2c8ac50d11d6880f17ae9e771"></a>
@@ -100,22 +110,22 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1fc60bc28606cf6cfd37e37ea4ceff14"><td class="memTemplItemLeft" align="right" valign="top">std::pair&lt; <a class="el" href="class__iterator.html">iterator</a>, bool &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classBST.html#a1fc60bc28606cf6cfd37e37ea4ceff14">emplace</a> (Types &amp;&amp;... args)</td></tr>
 <tr class="memdesc:a1fc60bc28606cf6cfd37e37ea4ceff14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert a new element into the container constructed in-place. \Tparam Types.  <a href="classBST.html#a1fc60bc28606cf6cfd37e37ea4ceff14">More...</a><br /></td></tr>
 <tr class="separator:a1fc60bc28606cf6cfd37e37ea4ceff14"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aba762ec30673b3f182b70e7a77790d33"><td class="memItemLeft" align="right" valign="top"><a id="aba762ec30673b3f182b70e7a77790d33"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBST.html#aba762ec30673b3f182b70e7a77790d33">clear</a> ()</td></tr>
-<tr class="memdesc:aba762ec30673b3f182b70e7a77790d33"><td class="mdescLeft">&#160;</td><td class="mdescRight">clear the content of the tree <br /></td></tr>
-<tr class="separator:aba762ec30673b3f182b70e7a77790d33"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab3c4fc769cdd7833f3cd2c70d6a483b5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct__node.html">node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBST.html#ab3c4fc769cdd7833f3cd2c70d6a483b5">_begin</a> () const noexcept</td></tr>
-<tr class="memdesc:ab3c4fc769cdd7833f3cd2c70d6a483b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">return a pointer to the node with the smallest key  <a href="classBST.html#ab3c4fc769cdd7833f3cd2c70d6a483b5">More...</a><br /></td></tr>
-<tr class="separator:ab3c4fc769cdd7833f3cd2c70d6a483b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa475b425135be4bb8c7f40e39b2a2e09"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class__iterator.html">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBST.html#aa475b425135be4bb8c7f40e39b2a2e09">begin</a> () noexcept</td></tr>
-<tr class="memdesc:aa475b425135be4bb8c7f40e39b2a2e09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper for _begin.  <a href="classBST.html#aa475b425135be4bb8c7f40e39b2a2e09">More...</a><br /></td></tr>
-<tr class="separator:aa475b425135be4bb8c7f40e39b2a2e09"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ea341a0d74bdbb13f02c00aeac22cb9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class__iterator.html">const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBST.html#a5ea341a0d74bdbb13f02c00aeac22cb9">begin</a> () const noexcept</td></tr>
-<tr class="memdesc:a5ea341a0d74bdbb13f02c00aeac22cb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper for _begin.  <a href="classBST.html#a5ea341a0d74bdbb13f02c00aeac22cb9">More...</a><br /></td></tr>
-<tr class="separator:a5ea341a0d74bdbb13f02c00aeac22cb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac985de457a35b8cbc5e29a6b0063ad31"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class__iterator.html">const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBST.html#ac985de457a35b8cbc5e29a6b0063ad31">cbegin</a> () const noexcept</td></tr>
-<tr class="memdesc:ac985de457a35b8cbc5e29a6b0063ad31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper for _begin.  <a href="classBST.html#ac985de457a35b8cbc5e29a6b0063ad31">More...</a><br /></td></tr>
-<tr class="separator:ac985de457a35b8cbc5e29a6b0063ad31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2fcb1eba1c73cd61fb4118f663e23ce"><td class="memItemLeft" align="right" valign="top"><a id="af2fcb1eba1c73cd61fb4118f663e23ce"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBST.html#af2fcb1eba1c73cd61fb4118f663e23ce">clear</a> () noexcept</td></tr>
+<tr class="memdesc:af2fcb1eba1c73cd61fb4118f663e23ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">clear the content of the tree <br /></td></tr>
+<tr class="separator:af2fcb1eba1c73cd61fb4118f663e23ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94df63f6e235f78881e543a2c19130dc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct__node.html">node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBST.html#a94df63f6e235f78881e543a2c19130dc">_begin</a> () const</td></tr>
+<tr class="memdesc:a94df63f6e235f78881e543a2c19130dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">return a pointer to the node with the smallest key  <a href="classBST.html#a94df63f6e235f78881e543a2c19130dc">More...</a><br /></td></tr>
+<tr class="separator:a94df63f6e235f78881e543a2c19130dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa6b76d232a047facbe48bb93b9097af5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class__iterator.html">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBST.html#aa6b76d232a047facbe48bb93b9097af5">begin</a> ()</td></tr>
+<tr class="memdesc:aa6b76d232a047facbe48bb93b9097af5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper for _begin.  <a href="classBST.html#aa6b76d232a047facbe48bb93b9097af5">More...</a><br /></td></tr>
+<tr class="separator:aa6b76d232a047facbe48bb93b9097af5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2594a309d860e898dedd67477e26d4f4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class__iterator.html">const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBST.html#a2594a309d860e898dedd67477e26d4f4">begin</a> () const</td></tr>
+<tr class="memdesc:a2594a309d860e898dedd67477e26d4f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper for _begin.  <a href="classBST.html#a2594a309d860e898dedd67477e26d4f4">More...</a><br /></td></tr>
+<tr class="separator:a2594a309d860e898dedd67477e26d4f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bac17c03d185104e6f50cf6ae155b7a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class__iterator.html">const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBST.html#a7bac17c03d185104e6f50cf6ae155b7a">cbegin</a> () const</td></tr>
+<tr class="memdesc:a7bac17c03d185104e6f50cf6ae155b7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper for _begin.  <a href="classBST.html#a7bac17c03d185104e6f50cf6ae155b7a">More...</a><br /></td></tr>
+<tr class="separator:a7bac17c03d185104e6f50cf6ae155b7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7d1c57dbb44c14fa24c052525ff4887d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class__iterator.html">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBST.html#a7d1c57dbb44c14fa24c052525ff4887d">end</a> () noexcept</td></tr>
 <tr class="memdesc:a7d1c57dbb44c14fa24c052525ff4887d"><td class="mdescLeft">&#160;</td><td class="mdescRight">return a pointer to the the last node + 1  <a href="classBST.html#a7d1c57dbb44c14fa24c052525ff4887d">More...</a><br /></td></tr>
 <tr class="separator:a7d1c57dbb44c14fa24c052525ff4887d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -138,21 +148,24 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBST.html#a77b08ce5a908e5a40f98bb7cf8daf40c">balance</a> ()</td></tr>
 <tr class="memdesc:a77b08ce5a908e5a40f98bb7cf8daf40c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Balance the tree. It copies the content of the tree in a std::vector using an iterator. A new tree is generated and the content of the vector is inserted in such a way to keep the new tree as balanced as possible. In the end a move between the new tree and the old one is performed. <br /></td></tr>
 <tr class="separator:a77b08ce5a908e5a40f98bb7cf8daf40c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac36df05a79b8199b4a674226ba1e175d"><td class="memItemLeft" align="right" valign="top">Tvalue &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBST.html#ac36df05a79b8199b4a674226ba1e175d">operator[]</a> (const Tkey &amp;x) noexcept</td></tr>
-<tr class="memdesc:ac36df05a79b8199b4a674226ba1e175d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overloading of the subscripting operator.  <a href="classBST.html#ac36df05a79b8199b4a674226ba1e175d">More...</a><br /></td></tr>
-<tr class="separator:ac36df05a79b8199b4a674226ba1e175d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf3163ef0d4be9f96a451dbde857917c"><td class="memItemLeft" align="right" valign="top">Tvalue &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBST.html#acf3163ef0d4be9f96a451dbde857917c">operator[]</a> (Tkey &amp;&amp;x) noexcept</td></tr>
-<tr class="memdesc:acf3163ef0d4be9f96a451dbde857917c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overloading of the subscripting operator.  <a href="classBST.html#acf3163ef0d4be9f96a451dbde857917c">More...</a><br /></td></tr>
-<tr class="separator:acf3163ef0d4be9f96a451dbde857917c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa6f7e8d44b46319e06ec24b5f00f9143"><td class="memItemLeft" align="right" valign="top">Tvalue &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBST.html#aa6f7e8d44b46319e06ec24b5f00f9143">operator[]</a> (const Tkey &amp;x)</td></tr>
+<tr class="memdesc:aa6f7e8d44b46319e06ec24b5f00f9143"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overloading of the subscripting operator.  <a href="classBST.html#aa6f7e8d44b46319e06ec24b5f00f9143">More...</a><br /></td></tr>
+<tr class="separator:aa6f7e8d44b46319e06ec24b5f00f9143"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0afec007e296a38a03a6f214e72190b2"><td class="memItemLeft" align="right" valign="top">Tvalue &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBST.html#a0afec007e296a38a03a6f214e72190b2">operator[]</a> (Tkey &amp;&amp;x)</td></tr>
+<tr class="memdesc:a0afec007e296a38a03a6f214e72190b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overloading of the subscripting operator.  <a href="classBST.html#a0afec007e296a38a03a6f214e72190b2">More...</a><br /></td></tr>
+<tr class="separator:a0afec007e296a38a03a6f214e72190b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a381bb949b5e180272da86431e5ddc9e0"><td class="memItemLeft" align="right" valign="top"><a id="a381bb949b5e180272da86431e5ddc9e0"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>BST</b> (<a class="el" href="classBST.html">BST</a> &amp;&amp;t) noexcept=default</td></tr>
 <tr class="separator:a381bb949b5e180272da86431e5ddc9e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a33f19eedbfaebeea7015b9788dae8feb"><td class="memItemLeft" align="right" valign="top"><a id="a33f19eedbfaebeea7015b9788dae8feb"></a>
 <a class="el" href="classBST.html">BST</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="classBST.html">BST</a> &amp;&amp;t) noexcept=default</td></tr>
 <tr class="separator:a33f19eedbfaebeea7015b9788dae8feb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae1a43f374be716661e7518ed24120eb7"><td class="memItemLeft" align="right" valign="top"><a id="ae1a43f374be716661e7518ed24120eb7"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>BST</b> (<a class="el" href="classBST.html">BST</a> &amp;other_t)</td></tr>
-<tr class="separator:ae1a43f374be716661e7518ed24120eb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af148835455f0e98a8527e8719b7b4cd7"><td class="memItemLeft" align="right" valign="top"><a id="af148835455f0e98a8527e8719b7b4cd7"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>BST</b> (const <a class="el" href="classBST.html">BST</a> &amp;other_t)</td></tr>
+<tr class="separator:af148835455f0e98a8527e8719b7b4cd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6fb2e27a4955aaf5c9b4bd6ed695470c"><td class="memItemLeft" align="right" valign="top"><a id="a6fb2e27a4955aaf5c9b4bd6ed695470c"></a>
+<a class="el" href="classBST.html">BST</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="classBST.html">BST</a> &amp;t)</td></tr>
+<tr class="separator:a6fb2e27a4955aaf5c9b4bd6ed695470c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a53adb1ef2d59b1f3d4c8f4fe8c2bf528"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBST.html#a53adb1ef2d59b1f3d4c8f4fe8c2bf528">erase</a> (const Tkey &amp;x)</td></tr>
 <tr class="memdesc:a53adb1ef2d59b1f3d4c8f4fe8c2bf528"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erase a node from the bst while keeping the binary search properties intact. 3 possible cases are possible:  <a href="classBST.html#a53adb1ef2d59b1f3d4c8f4fe8c2bf528">More...</a><br /></td></tr>
 <tr class="separator:a53adb1ef2d59b1f3d4c8f4fe8c2bf528"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -184,16 +197,13 @@ class BST&lt; Tkey, Tvalue, Tcompare &gt;</h3>
   </dd>
 </dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="ab3c4fc769cdd7833f3cd2c70d6a483b5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab3c4fc769cdd7833f3cd2c70d6a483b5">&#9670;&nbsp;</a></span>_begin()</h2>
+<a id="a94df63f6e235f78881e543a2c19130dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94df63f6e235f78881e543a2c19130dc">&#9670;&nbsp;</a></span>_begin()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename Tkey , typename Tvalue , typename Tcompare  = std::less&lt;Tkey&gt;&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="struct__node.html">node</a>* <a class="el" href="classBST.html">BST</a>&lt; Tkey, Tvalue, Tcompare &gt;::_begin </td>
@@ -202,11 +212,6 @@ template&lt;typename Tkey , typename Tvalue , typename Tcompare  = std::less&lt;
           <td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 <p>return a pointer to the node with the smallest key </p>
@@ -268,38 +273,8 @@ template&lt;typename O &gt; </div>
 
 </div>
 </div>
-<a id="a5ea341a0d74bdbb13f02c00aeac22cb9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5ea341a0d74bdbb13f02c00aeac22cb9">&#9670;&nbsp;</a></span>begin() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename Tkey , typename Tvalue , typename Tcompare  = std::less&lt;Tkey&gt;&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class__iterator.html">const_iterator</a> <a class="el" href="classBST.html">BST</a>&lt; Tkey, Tvalue, Tcompare &gt;::begin </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Wrapper for _begin. </p>
-<dl class="section return"><dt>Returns</dt><dd>const_iterator </dd></dl>
-
-</div>
-</div>
-<a id="aa475b425135be4bb8c7f40e39b2a2e09"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa475b425135be4bb8c7f40e39b2a2e09">&#9670;&nbsp;</a></span>begin() <span class="overload">[2/2]</span></h2>
+<a id="aa6b76d232a047facbe48bb93b9097af5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6b76d232a047facbe48bb93b9097af5">&#9670;&nbsp;</a></span>begin() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -318,7 +293,7 @@ template&lt;typename Tkey , typename Tvalue , typename Tcompare  = std::less&lt;
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -328,8 +303,38 @@ template&lt;typename Tkey , typename Tvalue , typename Tcompare  = std::less&lt;
 
 </div>
 </div>
-<a id="ac985de457a35b8cbc5e29a6b0063ad31"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac985de457a35b8cbc5e29a6b0063ad31">&#9670;&nbsp;</a></span>cbegin()</h2>
+<a id="a2594a309d860e898dedd67477e26d4f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2594a309d860e898dedd67477e26d4f4">&#9670;&nbsp;</a></span>begin() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Tkey , typename Tvalue , typename Tcompare  = std::less&lt;Tkey&gt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class__iterator.html">const_iterator</a> <a class="el" href="classBST.html">BST</a>&lt; Tkey, Tvalue, Tcompare &gt;::begin </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Wrapper for _begin. </p>
+<dl class="section return"><dt>Returns</dt><dd>const_iterator </dd></dl>
+
+</div>
+</div>
+<a id="a7bac17c03d185104e6f50cf6ae155b7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bac17c03d185104e6f50cf6ae155b7a">&#9670;&nbsp;</a></span>cbegin()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -348,7 +353,7 @@ template&lt;typename Tkey , typename Tvalue , typename Tcompare  = std::less&lt;
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -638,16 +643,13 @@ template&lt;typename Tkey , typename Tvalue , typename Tcompare  = std::less&lt;
 
 </div>
 </div>
-<a id="ac36df05a79b8199b4a674226ba1e175d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac36df05a79b8199b4a674226ba1e175d">&#9670;&nbsp;</a></span>operator[]() <span class="overload">[1/2]</span></h2>
+<a id="aa6f7e8d44b46319e06ec24b5f00f9143"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6f7e8d44b46319e06ec24b5f00f9143">&#9670;&nbsp;</a></span>operator[]() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename Tkey , typename Tvalue , typename Tcompare  = std::less&lt;Tkey&gt;&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">Tvalue&amp; <a class="el" href="classBST.html">BST</a>&lt; Tkey, Tvalue, Tcompare &gt;::operator[] </td>
@@ -657,11 +659,6 @@ template&lt;typename Tkey , typename Tvalue , typename Tcompare  = std::less&lt;
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 <p>Overloading of the subscripting operator. </p>
@@ -675,16 +672,13 @@ template&lt;typename Tkey , typename Tvalue , typename Tcompare  = std::less&lt;
 
 </div>
 </div>
-<a id="acf3163ef0d4be9f96a451dbde857917c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acf3163ef0d4be9f96a451dbde857917c">&#9670;&nbsp;</a></span>operator[]() <span class="overload">[2/2]</span></h2>
+<a id="a0afec007e296a38a03a6f214e72190b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0afec007e296a38a03a6f214e72190b2">&#9670;&nbsp;</a></span>operator[]() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename Tkey , typename Tvalue , typename Tcompare  = std::less&lt;Tkey&gt;&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">Tvalue&amp; <a class="el" href="classBST.html">BST</a>&lt; Tkey, Tvalue, Tcompare &gt;::operator[] </td>
@@ -694,11 +688,6 @@ template&lt;typename Tkey , typename Tvalue , typename Tcompare  = std::less&lt;
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 <p>Overloading of the subscripting operator. </p>

@@ -59,6 +59,5 @@ int main(){
 	bst_move_a = std::move(bst_move);
 	cout << "bst_move_a:\n" << bst_move_a << endl;
 
-
 	return 0;
 }

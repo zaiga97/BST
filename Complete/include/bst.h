@@ -14,14 +14,14 @@
 	for loop syntax. It only contains a raw pointer to a node
 	as a private member and several operators to move
 	in the tree and compare/extract informations from the node 
-	it's pointing at. The common use is to travers the tree from 
+	it's pointing at. The common use is to traverse the tree from 
 	the smallest key node to the biggest one.
 	\tparam Tkey_i: used to template node's Tkey type
 	\tparam Tvalue_i: used to template node's Tvalue type
 	\tparam Tpair_i: used to template constness of iterator
 */
 template <typename Tkey_i, typename Tvalue_i, typename Tpair_i>
-class _iterator;
+struct _iterator; 
 
 /** \struct _node
 	\brief Node struct
@@ -274,12 +274,9 @@ struct _node{
 	void erase_node() noexcept;
 
 };
-// template <typename Tnode, typename Tpair>
-template <typename Tkey_i, typename Tvalue_i, typename Tpair_i> // -> node s
-class _iterator{
-	public:
-	// Tnode
-	// using node = _node<Tnode>
+
+template <typename Tkey_i, typename Tvalue_i, typename Tpair_i>
+struct _iterator{
 	using node = _node<Tkey_i, Tvalue_i>;
 
 	/** /brief current node the iterator is pointing to*/

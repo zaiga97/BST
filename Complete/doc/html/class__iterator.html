@@ -89,10 +89,10 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>node</b> = <a class=
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a7d988318323e94182cfe2a0400205982"><td class="memItemLeft" align="right" valign="top"><a id="a7d988318323e94182cfe2a0400205982"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class__iterator.html#a7d988318323e94182cfe2a0400205982">_iterator</a> ()=default</td></tr>
-<tr class="memdesc:a7d988318323e94182cfe2a0400205982"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor, the iterator points to nullptr. <br /></td></tr>
-<tr class="separator:a7d988318323e94182cfe2a0400205982"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab799c15da6c34fe4e4cf9af94c270cb4"><td class="memItemLeft" align="right" valign="top"><a id="ab799c15da6c34fe4e4cf9af94c270cb4"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class__iterator.html#ab799c15da6c34fe4e4cf9af94c270cb4">_iterator</a> () noexcept=default</td></tr>
+<tr class="memdesc:ab799c15da6c34fe4e4cf9af94c270cb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor, the iterator points to nullptr. <br /></td></tr>
+<tr class="separator:ab799c15da6c34fe4e4cf9af94c270cb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9551c2ba58a00c054fc4b6fe1e616536"><td class="memItemLeft" align="right" valign="top"><a id="a9551c2ba58a00c054fc4b6fe1e616536"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class__iterator.html#a9551c2ba58a00c054fc4b6fe1e616536">_iterator</a> (<a class="el" href="struct__node.html">node</a> *pcurrent)</td></tr>
 <tr class="memdesc:a9551c2ba58a00c054fc4b6fe1e616536"><td class="mdescLeft">&#160;</td><td class="mdescRight">Custom constructor, the iterator points to the passed pointer. <br /></td></tr>
@@ -101,8 +101,16 @@ Public Member Functions</h2></td></tr>
 <a class="el" href="class__iterator.html">_iterator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class__iterator.html#aa9830619bdd7927786c073e82e6cd18c">operator++</a> ()</td></tr>
 <tr class="memdesc:aa9830619bdd7927786c073e82e6cd18c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overloading of the pre-increment operator. This pre-increment operator is the core of the <a class="el" href="class__iterator.html" title="_iterator is a templated class used for the pythonic for loop syntax. It only contains a raw pointer ...">_iterator</a> class and it's responsable for the traversing of the tree. All it does is changing the node the iterator is pointing to the one in the tree with the next larger key. If such a node it's not present, (it's pointing to the node with biggest key in the tree), returns an iterator pointing to a nullptr. <br /></td></tr>
 <tr class="separator:aa9830619bdd7927786c073e82e6cd18c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf4736547024274bd63a8fc273d75cc5"><td class="memItemLeft" align="right" valign="top"><a id="acf4736547024274bd63a8fc273d75cc5"></a>
+<a class="el" href="class__iterator.html">_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class__iterator.html#acf4736547024274bd63a8fc273d75cc5">operator++</a> (int)</td></tr>
+<tr class="memdesc:acf4736547024274bd63a8fc273d75cc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overloading of the post-increment operator. <br /></td></tr>
+<tr class="separator:acf4736547024274bd63a8fc273d75cc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab396c609d956597be579f602c2496f61"><td class="memItemLeft" align="right" valign="top"><a id="ab396c609d956597be579f602c2496f61"></a>
+<a class="el" href="class__iterator.html">_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class__iterator.html#ab396c609d956597be579f602c2496f61">operator+</a> (int n)</td></tr>
+<tr class="memdesc:ab396c609d956597be579f602c2496f61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overloading of the n-increment operator. No bound checking. <br /></td></tr>
+<tr class="separator:ab396c609d956597be579f602c2496f61"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac5302ed511b61b4bc8fd06572d31d772"><td class="memItemLeft" align="right" valign="top">Tpair_i &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class__iterator.html#ac5302ed511b61b4bc8fd06572d31d772">operator*</a> ()</td></tr>
-<tr class="memdesc:ac5302ed511b61b4bc8fd06572d31d772"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overloading of the post-increment operator.  <a href="class__iterator.html#ac5302ed511b61b4bc8fd06572d31d772">More...</a><br /></td></tr>
+<tr class="memdesc:ac5302ed511b61b4bc8fd06572d31d772"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overloading of the dereference operator.  <a href="class__iterator.html#ac5302ed511b61b4bc8fd06572d31d772">More...</a><br /></td></tr>
 <tr class="separator:ac5302ed511b61b4bc8fd06572d31d772"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af7bfbc91d84fa32ffcb396d937ea5b5a"><td class="memItemLeft" align="right" valign="top">Tpair_i *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class__iterator.html#af7bfbc91d84fa32ffcb396d937ea5b5a">operator-&gt;</a> ()</td></tr>
 <tr class="memdesc:af7bfbc91d84fa32ffcb396d937ea5b5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overloading of the arrow operator.  <a href="class__iterator.html#af7bfbc91d84fa32ffcb396d937ea5b5a">More...</a><br /></td></tr>
@@ -182,9 +190,8 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Overloading of the post-increment operator. </p>
-<p>Overloading of the n-increment operator. No bound checking.</p>
-<p>Overloading of the dereference operator </p><dl class="section return"><dt>Returns</dt><dd>reference to the pair type stored in the node. Note that the reference could be const or not depeding on the template of the <a class="el" href="class__iterator.html" title="_iterator is a templated class used for the pythonic for loop syntax. It only contains a raw pointer ...">_iterator</a>. </dd></dl>
+<p>Overloading of the dereference operator. </p>
+<dl class="section return"><dt>Returns</dt><dd>reference to the pair type stored in the node. Note that the reference could be const or not depeding on the template of the <a class="el" href="class__iterator.html" title="_iterator is a templated class used for the pythonic for loop syntax. It only contains a raw pointer ...">_iterator</a>. </dd></dl>
 
 </div>
 </div>

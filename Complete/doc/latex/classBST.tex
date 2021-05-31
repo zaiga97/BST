@@ -9,6 +9,15 @@ Binary Search Tree Class.
 
 {\ttfamily \#include $<$bst.\+h$>$}
 
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBST_a2a382f1bfebf8b7853de87f6393f3545}\label{classBST_a2a382f1bfebf8b7853de87f6393f3545}} 
+using {\bfseries iterator} = \mbox{\hyperlink{class__iterator}{\+\_\+iterator}}$<$ Tkey, Tvalue, std\+::pair$<$ Tkey, Tvalue $>$ $>$
+\item 
+\mbox{\Hypertarget{classBST_af84d2462832ce5df4f8f5e2b0e12eba0}\label{classBST_af84d2462832ce5df4f8f5e2b0e12eba0}} 
+using {\bfseries const\+\_\+iterator} = \mbox{\hyperlink{class__iterator}{\+\_\+iterator}}$<$ Tkey, Tvalue, const std\+::pair$<$ Tkey, Tvalue $>$ $>$
+\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -26,16 +35,16 @@ std\+::pair$<$ \mbox{\hyperlink{class__iterator}{iterator}}, bool $>$ \mbox{\hyp
 \begin{DoxyCompactList}\small\item\em inserts a new node in the \mbox{\hyperlink{classBST}{B\+ST}} if the passed key is not already in the tree. \end{DoxyCompactList}\item 
 {\footnotesize template$<$typename... Types$>$ }\\std\+::pair$<$ \mbox{\hyperlink{class__iterator}{iterator}}, bool $>$ \mbox{\hyperlink{classBST_a1fc60bc28606cf6cfd37e37ea4ceff14}{emplace}} (Types \&\&... args)
 \begin{DoxyCompactList}\small\item\em Insert a new element into the container constructed in-\/place. \textbackslash{}\+Tparam Types. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classBST_aba762ec30673b3f182b70e7a77790d33}\label{classBST_aba762ec30673b3f182b70e7a77790d33}} 
-void \mbox{\hyperlink{classBST_aba762ec30673b3f182b70e7a77790d33}{clear}} ()
+\mbox{\Hypertarget{classBST_af2fcb1eba1c73cd61fb4118f663e23ce}\label{classBST_af2fcb1eba1c73cd61fb4118f663e23ce}} 
+void \mbox{\hyperlink{classBST_af2fcb1eba1c73cd61fb4118f663e23ce}{clear}} () noexcept
 \begin{DoxyCompactList}\small\item\em clear the content of the tree \end{DoxyCompactList}\item 
-\mbox{\hyperlink{struct__node}{node}} $\ast$ \mbox{\hyperlink{classBST_ab3c4fc769cdd7833f3cd2c70d6a483b5}{\+\_\+begin}} () const noexcept
+\mbox{\hyperlink{struct__node}{node}} $\ast$ \mbox{\hyperlink{classBST_a94df63f6e235f78881e543a2c19130dc}{\+\_\+begin}} () const
 \begin{DoxyCompactList}\small\item\em return a pointer to the node with the smallest key \end{DoxyCompactList}\item 
-\mbox{\hyperlink{class__iterator}{iterator}} \mbox{\hyperlink{classBST_aa475b425135be4bb8c7f40e39b2a2e09}{begin}} () noexcept
+\mbox{\hyperlink{class__iterator}{iterator}} \mbox{\hyperlink{classBST_aa6b76d232a047facbe48bb93b9097af5}{begin}} ()
 \begin{DoxyCompactList}\small\item\em Wrapper for \+\_\+begin. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{class__iterator}{const\+\_\+iterator}} \mbox{\hyperlink{classBST_a5ea341a0d74bdbb13f02c00aeac22cb9}{begin}} () const noexcept
+\mbox{\hyperlink{class__iterator}{const\+\_\+iterator}} \mbox{\hyperlink{classBST_a2594a309d860e898dedd67477e26d4f4}{begin}} () const
 \begin{DoxyCompactList}\small\item\em Wrapper for \+\_\+begin. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{class__iterator}{const\+\_\+iterator}} \mbox{\hyperlink{classBST_ac985de457a35b8cbc5e29a6b0063ad31}{cbegin}} () const noexcept
+\mbox{\hyperlink{class__iterator}{const\+\_\+iterator}} \mbox{\hyperlink{classBST_a7bac17c03d185104e6f50cf6ae155b7a}{cbegin}} () const
 \begin{DoxyCompactList}\small\item\em Wrapper for \+\_\+begin. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{class__iterator}{iterator}} \mbox{\hyperlink{classBST_a7d1c57dbb44c14fa24c052525ff4887d}{end}} () noexcept
 \begin{DoxyCompactList}\small\item\em return a pointer to the the last node + 1 \end{DoxyCompactList}\item 
@@ -52,9 +61,9 @@ void \mbox{\hyperlink{classBST_aba762ec30673b3f182b70e7a77790d33}{clear}} ()
 \mbox{\Hypertarget{classBST_a77b08ce5a908e5a40f98bb7cf8daf40c}\label{classBST_a77b08ce5a908e5a40f98bb7cf8daf40c}} 
 void \mbox{\hyperlink{classBST_a77b08ce5a908e5a40f98bb7cf8daf40c}{balance}} ()
 \begin{DoxyCompactList}\small\item\em Balance the tree. It copies the content of the tree in a std\+::vector using an iterator. A new tree is generated and the content of the vector is inserted in such a way to keep the new tree as balanced as possible. In the end a move between the new tree and the old one is performed. \end{DoxyCompactList}\item 
-Tvalue \& \mbox{\hyperlink{classBST_ac36df05a79b8199b4a674226ba1e175d}{operator\mbox{[}$\,$\mbox{]}}} (const Tkey \&x) noexcept
+Tvalue \& \mbox{\hyperlink{classBST_aa6f7e8d44b46319e06ec24b5f00f9143}{operator\mbox{[}$\,$\mbox{]}}} (const Tkey \&x)
 \begin{DoxyCompactList}\small\item\em Overloading of the subscripting operator. \end{DoxyCompactList}\item 
-Tvalue \& \mbox{\hyperlink{classBST_acf3163ef0d4be9f96a451dbde857917c}{operator\mbox{[}$\,$\mbox{]}}} (Tkey \&\&x) noexcept
+Tvalue \& \mbox{\hyperlink{classBST_a0afec007e296a38a03a6f214e72190b2}{operator\mbox{[}$\,$\mbox{]}}} (Tkey \&\&x)
 \begin{DoxyCompactList}\small\item\em Overloading of the subscripting operator. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classBST_a381bb949b5e180272da86431e5ddc9e0}\label{classBST_a381bb949b5e180272da86431e5ddc9e0}} 
 {\bfseries B\+ST} (\mbox{\hyperlink{classBST}{B\+ST}} \&\&t) noexcept=default
@@ -62,8 +71,11 @@ Tvalue \& \mbox{\hyperlink{classBST_acf3163ef0d4be9f96a451dbde857917c}{operator\
 \mbox{\Hypertarget{classBST_a33f19eedbfaebeea7015b9788dae8feb}\label{classBST_a33f19eedbfaebeea7015b9788dae8feb}} 
 \mbox{\hyperlink{classBST}{B\+ST}} \& {\bfseries operator=} (\mbox{\hyperlink{classBST}{B\+ST}} \&\&t) noexcept=default
 \item 
-\mbox{\Hypertarget{classBST_ae1a43f374be716661e7518ed24120eb7}\label{classBST_ae1a43f374be716661e7518ed24120eb7}} 
-{\bfseries B\+ST} (\mbox{\hyperlink{classBST}{B\+ST}} \&other\+\_\+t)
+\mbox{\Hypertarget{classBST_af148835455f0e98a8527e8719b7b4cd7}\label{classBST_af148835455f0e98a8527e8719b7b4cd7}} 
+{\bfseries B\+ST} (const \mbox{\hyperlink{classBST}{B\+ST}} \&other\+\_\+t)
+\item 
+\mbox{\Hypertarget{classBST_a6fb2e27a4955aaf5c9b4bd6ed695470c}\label{classBST_a6fb2e27a4955aaf5c9b4bd6ed695470c}} 
+\mbox{\hyperlink{classBST}{B\+ST}} \& {\bfseries operator=} (const \mbox{\hyperlink{classBST}{B\+ST}} \&t)
 \item 
 void \mbox{\hyperlink{classBST_a53adb1ef2d59b1f3d4c8f4fe8c2bf528}{erase}} (const Tkey \&x)
 \begin{DoxyCompactList}\small\item\em Erase a node from the bst while keeping the binary search properties intact. 3 possible cases are possible\+: \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -99,12 +111,12 @@ Binary Search Tree Class.
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classBST_ab3c4fc769cdd7833f3cd2c70d6a483b5}\label{classBST_ab3c4fc769cdd7833f3cd2c70d6a483b5}} 
+\mbox{\Hypertarget{classBST_a94df63f6e235f78881e543a2c19130dc}\label{classBST_a94df63f6e235f78881e543a2c19130dc}} 
 \index{BST$<$ Tkey, Tvalue, Tcompare $>$@{BST$<$ Tkey, Tvalue, Tcompare $>$}!\_begin@{\_begin}}
 \index{\_begin@{\_begin}!BST$<$ Tkey, Tvalue, Tcompare $>$@{BST$<$ Tkey, Tvalue, Tcompare $>$}}
 \doxysubsubsection{\texorpdfstring{\_begin()}{\_begin()}}
 {\footnotesize\ttfamily template$<$typename Tkey , typename Tvalue , typename Tcompare  = std\+::less$<$\+Tkey$>$$>$ \\
-\mbox{\hyperlink{struct__node}{node}}$\ast$ \mbox{\hyperlink{classBST}{B\+ST}}$<$ Tkey, Tvalue, Tcompare $>$\+::\+\_\+begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+\mbox{\hyperlink{struct__node}{node}}$\ast$ \mbox{\hyperlink{classBST}{B\+ST}}$<$ Tkey, Tvalue, Tcompare $>$\+::\+\_\+begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
 
 
@@ -147,26 +159,12 @@ inserts a new node in the \mbox{\hyperlink{classBST}{B\+ST}} if the passed key i
 \begin{DoxyReturn}{Returns}
 std\+::pair$<$iterator, bool$>$. The iterator points to the new node while the bool returns true if the node was allocated, false otherwise. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{classBST_a5ea341a0d74bdbb13f02c00aeac22cb9}\label{classBST_a5ea341a0d74bdbb13f02c00aeac22cb9}} 
+\mbox{\Hypertarget{classBST_aa6b76d232a047facbe48bb93b9097af5}\label{classBST_aa6b76d232a047facbe48bb93b9097af5}} 
 \index{BST$<$ Tkey, Tvalue, Tcompare $>$@{BST$<$ Tkey, Tvalue, Tcompare $>$}!begin@{begin}}
 \index{begin@{begin}!BST$<$ Tkey, Tvalue, Tcompare $>$@{BST$<$ Tkey, Tvalue, Tcompare $>$}}
 \doxysubsubsection{\texorpdfstring{begin()}{begin()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily template$<$typename Tkey , typename Tvalue , typename Tcompare  = std\+::less$<$\+Tkey$>$$>$ \\
-\mbox{\hyperlink{class__iterator}{const\+\_\+iterator}} \mbox{\hyperlink{classBST}{B\+ST}}$<$ Tkey, Tvalue, Tcompare $>$\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
-
-
-
-Wrapper for \+\_\+begin. 
-
-\begin{DoxyReturn}{Returns}
-const\+\_\+iterator 
-\end{DoxyReturn}
-\mbox{\Hypertarget{classBST_aa475b425135be4bb8c7f40e39b2a2e09}\label{classBST_aa475b425135be4bb8c7f40e39b2a2e09}} 
-\index{BST$<$ Tkey, Tvalue, Tcompare $>$@{BST$<$ Tkey, Tvalue, Tcompare $>$}!begin@{begin}}
-\index{begin@{begin}!BST$<$ Tkey, Tvalue, Tcompare $>$@{BST$<$ Tkey, Tvalue, Tcompare $>$}}
-\doxysubsubsection{\texorpdfstring{begin()}{begin()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily template$<$typename Tkey , typename Tvalue , typename Tcompare  = std\+::less$<$\+Tkey$>$$>$ \\
-\mbox{\hyperlink{class__iterator}{iterator}} \mbox{\hyperlink{classBST}{B\+ST}}$<$ Tkey, Tvalue, Tcompare $>$\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+\mbox{\hyperlink{class__iterator}{iterator}} \mbox{\hyperlink{classBST}{B\+ST}}$<$ Tkey, Tvalue, Tcompare $>$\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -175,12 +173,26 @@ Wrapper for \+\_\+begin.
 \begin{DoxyReturn}{Returns}
 iterator 
 \end{DoxyReturn}
-\mbox{\Hypertarget{classBST_ac985de457a35b8cbc5e29a6b0063ad31}\label{classBST_ac985de457a35b8cbc5e29a6b0063ad31}} 
+\mbox{\Hypertarget{classBST_a2594a309d860e898dedd67477e26d4f4}\label{classBST_a2594a309d860e898dedd67477e26d4f4}} 
+\index{BST$<$ Tkey, Tvalue, Tcompare $>$@{BST$<$ Tkey, Tvalue, Tcompare $>$}!begin@{begin}}
+\index{begin@{begin}!BST$<$ Tkey, Tvalue, Tcompare $>$@{BST$<$ Tkey, Tvalue, Tcompare $>$}}
+\doxysubsubsection{\texorpdfstring{begin()}{begin()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Tkey , typename Tvalue , typename Tcompare  = std\+::less$<$\+Tkey$>$$>$ \\
+\mbox{\hyperlink{class__iterator}{const\+\_\+iterator}} \mbox{\hyperlink{classBST}{B\+ST}}$<$ Tkey, Tvalue, Tcompare $>$\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Wrapper for \+\_\+begin. 
+
+\begin{DoxyReturn}{Returns}
+const\+\_\+iterator 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBST_a7bac17c03d185104e6f50cf6ae155b7a}\label{classBST_a7bac17c03d185104e6f50cf6ae155b7a}} 
 \index{BST$<$ Tkey, Tvalue, Tcompare $>$@{BST$<$ Tkey, Tvalue, Tcompare $>$}!cbegin@{cbegin}}
 \index{cbegin@{cbegin}!BST$<$ Tkey, Tvalue, Tcompare $>$@{BST$<$ Tkey, Tvalue, Tcompare $>$}}
 \doxysubsubsection{\texorpdfstring{cbegin()}{cbegin()}}
 {\footnotesize\ttfamily template$<$typename Tkey , typename Tvalue , typename Tcompare  = std\+::less$<$\+Tkey$>$$>$ \\
-\mbox{\hyperlink{class__iterator}{const\+\_\+iterator}} \mbox{\hyperlink{classBST}{B\+ST}}$<$ Tkey, Tvalue, Tcompare $>$\+::cbegin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+\mbox{\hyperlink{class__iterator}{const\+\_\+iterator}} \mbox{\hyperlink{classBST}{B\+ST}}$<$ Tkey, Tvalue, Tcompare $>$\+::cbegin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -332,12 +344,12 @@ Wrapper for \+\_\+insert.
 {\em std\+::pair$<$\+Tkey,Tvalue$>$\&\&} & x \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{classBST_ac36df05a79b8199b4a674226ba1e175d}\label{classBST_ac36df05a79b8199b4a674226ba1e175d}} 
+\mbox{\Hypertarget{classBST_aa6f7e8d44b46319e06ec24b5f00f9143}\label{classBST_aa6f7e8d44b46319e06ec24b5f00f9143}} 
 \index{BST$<$ Tkey, Tvalue, Tcompare $>$@{BST$<$ Tkey, Tvalue, Tcompare $>$}!operator\mbox{[}\mbox{]}@{operator[]}}
 \index{operator\mbox{[}\mbox{]}@{operator[]}!BST$<$ Tkey, Tvalue, Tcompare $>$@{BST$<$ Tkey, Tvalue, Tcompare $>$}}
 \doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily template$<$typename Tkey , typename Tvalue , typename Tcompare  = std\+::less$<$\+Tkey$>$$>$ \\
-Tvalue\& \mbox{\hyperlink{classBST}{B\+ST}}$<$ Tkey, Tvalue, Tcompare $>$\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{const Tkey \&}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
+Tvalue\& \mbox{\hyperlink{classBST}{B\+ST}}$<$ Tkey, Tvalue, Tcompare $>$\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{const Tkey \&}]{x }\end{DoxyParamCaption})}
 
 
 
@@ -351,12 +363,12 @@ Overloading of the subscripting operator.
 \begin{DoxyReturn}{Returns}
 Tvalue\&\+: reference to the value that is mapped to the key equivalent to x, performing an insertion if the node with such key is not present. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{classBST_acf3163ef0d4be9f96a451dbde857917c}\label{classBST_acf3163ef0d4be9f96a451dbde857917c}} 
+\mbox{\Hypertarget{classBST_a0afec007e296a38a03a6f214e72190b2}\label{classBST_a0afec007e296a38a03a6f214e72190b2}} 
 \index{BST$<$ Tkey, Tvalue, Tcompare $>$@{BST$<$ Tkey, Tvalue, Tcompare $>$}!operator\mbox{[}\mbox{]}@{operator[]}}
 \index{operator\mbox{[}\mbox{]}@{operator[]}!BST$<$ Tkey, Tvalue, Tcompare $>$@{BST$<$ Tkey, Tvalue, Tcompare $>$}}
 \doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily template$<$typename Tkey , typename Tvalue , typename Tcompare  = std\+::less$<$\+Tkey$>$$>$ \\
-Tvalue\& \mbox{\hyperlink{classBST}{B\+ST}}$<$ Tkey, Tvalue, Tcompare $>$\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{Tkey \&\&}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
+Tvalue\& \mbox{\hyperlink{classBST}{B\+ST}}$<$ Tkey, Tvalue, Tcompare $>$\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{Tkey \&\&}]{x }\end{DoxyParamCaption})}
 
 
 
