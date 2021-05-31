@@ -1,7 +1,7 @@
-SRC = main_test.cpp
+SRC = ./tests/main_test.cpp
 
 CXX = c++
-CXXFLAGS = -Wall -Wextra -g -std=c++14 bst.cpp 
+CXXFLAGS = -Wall -Wextra -g -std=c++14 ./include/bst.h
 
 EXE = $(SRC:.cpp=.x)
 
